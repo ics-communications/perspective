@@ -1,0 +1,22 @@
+Images for Perspective Fall 2026 (web edition)
+Source: ics_perspective_fall2026_wrk01.pdf (InDesign export, 20 pages)
+Photos and illustrations were taken from the PDF's embedded originals (pdfimages), then resized.
+Page numbers are PDF pages.
+
+cover-fern.jpg           p.1   cover photograph
+head-acero-ferrer.jpg    p.2   headshot, About this issue
+green-window.jpg         p.4   Green opener
+head-green.jpg           p.5   headshot
+green-reader.jpg         p.7   Green, wide figure
+head-sweetman.jpg        p.9   headshot
+sweetman-laundry.jpg     p.10  Sweetman opener
+sweetman-shirts.jpg      p.11  Sweetman, margin figure
+khurshid-windows.jpg     p.13  Khurshid opener (no headshot in the PDF; a red circle stands in, as in print)
+head-benjamins.jpg       p.15  headshot
+benjamins-warblers.jpg   p.15  Benjamins opener
+benjamins-buntings.jpg   p.16  Benjamins, with the first orange pull quote
+benjamins-tanagers.jpg   p.17  Benjamins, with the second orange pull quote
+head-grills.jpg          p.18  headshot
+grills-street.jpg        p.19  Grills opener
+art-in-orvieto.webp      p.20  top of the page rendered at 220 dpi without the editor's annotations, trimmed above the masthead panel
+ics-logo.svg             p.20  vector paths rebuilt from the PDF; inlined in the page with currentColor

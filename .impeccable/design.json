@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-28T06:33:43+00:00",
+  "title": "Design System: Perspective",
+  "extensions": {
+    "colorMeta": {
+      "red": {
+        "role": "primary",
+        "displayName": "Perspective Red",
+        "canonical": "#D2232A",
+        "oklch": "oklch(55.7% 0.208 26)",
+        "tonalRamp": [
+          "oklch(15% 0.056 26)",
+          "oklch(26% 0.098 26)",
+          "oklch(38% 0.141 26)",
+          "oklch(49% 0.184 26)",
+          "oklch(61% 0.189 26)",
+          "oklch(72% 0.147 26)",
+          "oklch(84% 0.104 26)",
+          "oklch(95% 0.061 26)"
+        ]
+      },
+      "red-deep": {
+        "role": "primary",
+        "displayName": "Deep Red",
+        "canonical": "#A8161C",
+        "oklch": "oklch(47.0% 0.178 26)",
+        "tonalRamp": [
+          "oklch(15% 0.071 26)",
+          "oklch(26% 0.109 26)",
+          "oklch(38% 0.148 26)",
+          "oklch(49% 0.170 26)",
+          "oklch(61% 0.132 26)",
+          "oklch(72% 0.094 26)",
+          "oklch(84% 0.055 26)",
+          "oklch(95% 0.045 26)"
+        ]
+      },
+      "cream": {
+        "role": "neutral",
+        "displayName": "Cream",
+        "canonical": "#FFF4DB",
+        "oklch": "oklch(96.9% 0.035 87)",
+        "tonalRamp": [
+          "oklch(15% 0.009 87)",
+          "oklch(26% 0.009 87)",
+          "oklch(38% 0.014 87)",
+          "oklch(49% 0.018 87)",
+          "oklch(61% 0.022 87)",
+          "oklch(72% 0.026 87)",
+          "oklch(84% 0.030 87)",
+          "oklch(95% 0.034 87)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#111111",
+        "oklch": "oklch(17.8% 0.000 90)",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(26% 0.000 90)",
+          "oklch(38% 0.000 90)",
+          "oklch(49% 0.000 90)",
+          "oklch(61% 0.000 90)",
+          "oklch(72% 0.000 90)",
+          "oklch(84% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#FFFFFF",
+        "oklch": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(26% 0.000 90)",
+          "oklch(38% 0.000 90)",
+          "oklch(49% 0.000 90)",
+          "oklch(61% 0.000 90)",
+          "oklch(72% 0.000 90)",
+          "oklch(84% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      },
+      "grey": {
+        "role": "neutral",
+        "displayName": "Warm Grey",
+        "canonical": "#5A5650",
+        "oklch": "oklch(45.5% 0.011 78)",
+        "tonalRamp": [
+          "oklch(15% 0.011 78)",
+          "oklch(26% 0.011 78)",
+          "oklch(38% 0.011 78)",
+          "oklch(49% 0.011 78)",
+          "oklch(61% 0.011 78)",
+          "oklch(72% 0.011 78)",
+          "oklch(84% 0.011 78)",
+          "oklch(95% 0.011 78)"
+        ]
+      },
+      "hair": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "color-mix(in srgb, #111111 18%, transparent)",
+        "note": "Derived from ink; no separate ramp."
+      },
+      "stroke": {
+        "role": "neutral",
+        "displayName": "Field Stroke",
+        "canonical": "color-mix(in srgb, #111111 45%, transparent)",
+        "note": "Derived from ink; no separate ramp."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page headlines: feature, archive head, subscribe. 'Perspective' set italic 400."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Band headings: print band, Earlier issues, confirmation."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Decade titles in the volume ledger, uppercase over a 3px red rule."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Volume numbers in ledger rows; 2.6rem under 40rem."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text at a 34em measure."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Feature standfirst and subscribe introduction."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Contents titles in condensed caps; form legends at 1.25rem."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Issue lines, counts, dates, form labels and notes, lining figures."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Every button, uppercase."
+      }
+    },
+    "shadows": [
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 1px #D2232A",
+        "purpose": "Focused input, with the border turned red. State only, never elevation."
+      },
+      {
+        "name": "checked-ring",
+        "value": "inset 0 0 0 1px #D2232A",
+        "purpose": "Checked radio choice."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "The house ease, shared with the edition; every site transition uses it."
+      },
+      {
+        "name": "state",
+        "value": ".3s",
+        "purpose": "Colour, background and border changes on links and buttons."
+      },
+      {
+        "name": "field",
+        "value": ".2s",
+        "purpose": "Input border and ring."
+      },
+      {
+        "name": "cover",
+        "value": ".6s",
+        "purpose": "Issue tile cover lift (translateY(-2%) scale(1.03))."
+      },
+      {
+        "name": "feature-cover",
+        "value": "1.2s",
+        "purpose": "Feature cover scale(1.015) on hover."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition-duration: .01ms",
+        "purpose": "All transitions collapse under prefers-reduced-motion; smooth scroll only when motion is allowed."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "40rem",
+        "purpose": "Ledger numeral column widens; form rows split."
+      },
+      {
+        "name": "md",
+        "value": "60rem",
+        "purpose": "Feature, archive head, print band and subscribe go two or three columns."
+      },
+      {
+        "name": "lg",
+        "value": "64rem",
+        "purpose": "Decade rail becomes a sticky column."
+      },
+      {
+        "name": "chrome",
+        "value": "1200px",
+        "purpose": "Borrowed ICS masthead switches to the burger (69px bar)."
+      }
+    ],
+    "borrowedChrome": {
+      "masthead": {
+        "source": "philosophy site (assets/site.css), from faculty.icscanada.edu",
+        "scope": ".ics-header, .ics-mobile-menu",
+        "tokens": {
+          "--ink": "#000000",
+          "--brand-red": "#D31145",
+          "--paper": "#FFFFFF",
+          "--nav-sans": "'Helvetica Neue', Helvetica, Arial, sans-serif"
+        }
+      },
+      "footer": {
+        "source": "ics-site css/styles.css and js/footer.js",
+        "scope": ".site-footer",
+        "tokens": {
+          "--wine-deep": "#7A0A1C",
+          "--accent-light": "#C87A52",
+          "--accent-on-wine": "#E9B48F",
+          "--cream": "#FDFBF7",
+          "--text-on-dark": "#E8C2C2",
+          "--serif": "'Libre Baskerville', Georgia, serif",
+          "body": "Outfit"
+        }
+      },
+      "note": "Not Perspective tokens. Kept in their own scopes and never referenced by Perspective components."
+    },
+    "rootFontSize": "106.25% (1rem = 17px)"
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one primary action: red fill, square, Avenir Next bold caps; ink on hover; 0.55 opacity while sending.",
+      "html": "<div style=\"display:flex;gap:.75rem;flex-wrap:wrap\"><a class=\"ds-btn\" href=\"#\">Read the Fall 2026 issue <svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M2 8h11M9 4l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></a><button class=\"ds-btn\" disabled>Sending…</button></div>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:2.9rem;padding:.7rem 1.25rem;font-family:'Avenir Next',system-ui,sans-serif;font-weight:700;font-size:.82rem;line-height:1.2;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;border:1px solid var(--red);border-radius:0;background:var(--red);color:var(--paper);cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)} .ds-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)} .ds-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px} .ds-btn[disabled]{opacity:.55;cursor:progress} .ds-btn svg{width:1em;height:1em;flex:none}"
+    },
+    {
+      "name": "Line Button",
+      "kind": "button",
+      "refersTo": "button-line",
+      "description": "Secondary or navigational action: 1px ink border on paper, fills ink on hover.",
+      "html": "<a class=\"ds-btn ds-btn--line\" href=\"#\">Get it in print</a>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:2.9rem;padding:.7rem 1.25rem;font-family:'Avenir Next',system-ui,sans-serif;font-weight:700;font-size:.82rem;line-height:1.2;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;border:1px solid var(--red);border-radius:0;background:var(--red);color:var(--paper);cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)} .ds-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)} .ds-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px} .ds-btn[disabled]{opacity:.55;cursor:progress} .ds-btn svg{width:1em;height:1em;flex:none} .ds-btn--line{background:transparent;color:var(--ink);border-color:var(--ink)} .ds-btn--line:hover{background:var(--ink);color:var(--paper)}"
+    },
+    {
+      "name": "Issue Tile",
+      "kind": "card",
+      "refersTo": "issue-cover",
+      "description": "A real cover at 17:22 inside an inset hairline, number and date below; red ring on hover/focus; the current issue reads 'Read online' in red; the last opened issue carries a red flag.",
+      "html": "<div style=\"display:flex;gap:1.1rem\"><a class=\"ds-issue\" href=\"#\"><span class=\"ds-issue__cover\"><span class=\"ph\"></span><span class=\"ds-issue__flag\">Last opened</span></span><span class=\"ds-issue__meta\"><b>No. 2</b> <i>Spring 2024</i></span></a><a class=\"ds-issue ds-issue--online\" href=\"#\"><span class=\"ds-issue__cover\"><span class=\"ph\"></span></span><span class=\"ds-issue__meta\"><b>No. 1</b> <i>Read online</i></span></a></div>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-issue{display:block;width:8rem;text-decoration:none;color:var(--ink)} .ds-issue__cover{display:block;position:relative;aspect-ratio:17/22;background:var(--cream);outline:1px solid var(--hair);outline-offset:-1px;overflow:hidden} .ds-issue__cover span.ph{position:absolute;inset:0;background:linear-gradient(var(--red) 0 22%,var(--cream) 22%);transition:transform .6s var(--ease)} .ds-issue:hover .ds-issue__cover span.ph{transform:translateY(-2%) scale(1.03)} .ds-issue:hover .ds-issue__cover,.ds-issue:focus-visible .ds-issue__cover{outline:2px solid var(--red);outline-offset:0} .ds-issue:focus-visible{outline:none} .ds-issue__meta{display:block;font-family:'Avenir Next',system-ui,sans-serif;font-size:.82rem;line-height:1.3;margin-top:.45rem;font-variant-numeric:lining-nums} .ds-issue__meta b{font-weight:700} .ds-issue__meta i{display:block;font-style:normal;color:var(--grey)} .ds-issue:hover .ds-issue__meta b{color:var(--red)} .ds-issue--online .ds-issue__meta i{color:var(--red)} .ds-issue__flag{position:absolute;left:0;top:.55rem;z-index:1;background:var(--red);color:var(--paper);font-family:'Avenir Next',system-ui,sans-serif;font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;padding:.25rem .55rem .25rem .45rem}"
+    },
+    {
+      "name": "Volume Ledger Row",
+      "kind": "custom",
+      "refersTo": "volume-gap",
+      "description": "One ruled row per volume: light condensed numeral, VOL. label and red year, then its covers. A missing volume keeps its row as a cream note.",
+      "html": "<div class=\"ds-decade\"><h3 class=\"ds-decade__t\"><b>2020s</b> <span>11 issues</span></h3><div class=\"ds-vol\"><h4 class=\"ds-vol__t\"><span class=\"v\">Vol.</span><span class=\"n\">59</span></h4><p class=\"ds-gap\">Not yet in the ICS Institutional Repository.</p></div><div class=\"ds-vol\"><h4 class=\"ds-vol__t\"><span class=\"v\">Vol.</span><span class=\"n\">58</span><span class=\"y\">2023–24</span></h4><ol class=\"ds-vol__issues\"><li><span class=\"ds-cv\"></span></li><li><span class=\"ds-cv\"></span></li></ol></div></div>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-decade{font-family:Newsreader,Georgia,serif;color:var(--ink)} .ds-decade__t{margin:0;font-family:'Avenir Next Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:2.4rem;line-height:1;display:flex;align-items:baseline;justify-content:space-between;gap:1rem;border-top:3px solid var(--red);padding-top:.6rem} .ds-decade__t b{font-weight:inherit;text-transform:uppercase} .ds-decade__t span{font-family:'Avenir Next',system-ui,sans-serif;font-size:.88rem;color:var(--grey)} .ds-vol{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:1.4rem;padding:1.1rem 0 1.3rem;border-bottom:1px solid var(--hair)} .ds-vol__t{margin:0;font-family:'Avenir Next Condensed','Arial Narrow',sans-serif;font-weight:300;font-size:3.2rem;line-height:1} .ds-vol__t .v{display:block;font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--grey);margin-bottom:.15rem} .ds-vol__t .n{display:block;letter-spacing:-.02em} .ds-vol__t .y{display:block;font-family:'Avenir Next',system-ui,sans-serif;font-weight:500;font-size:.9rem;color:var(--red);margin-top:.35rem} .ds-vol__issues{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(7.6rem,8.6rem));gap:1.3rem 1.1rem} .ds-cv{display:block;aspect-ratio:17/22;background:var(--cream);outline:1px solid var(--hair);outline-offset:-1px} .ds-gap{margin:0;background:var(--cream);padding:1rem 1.2rem;font-family:'Avenir Next',system-ui,sans-serif;font-size:.9rem;color:var(--grey);display:flex;align-items:center}"
+    },
+    {
+      "name": "Decade Rail",
+      "kind": "nav",
+      "refersTo": "decade-chip-current",
+      "description": "Jump list through the ledger. Narrow: square chips, the decade in view filled red. From 64rem: a sticky ruled column, the decade in view in bold ink.",
+      "html": "<nav class=\"ds-rail\"><ol><li><a href=\"#\" aria-current=\"true\">2020s <span>11</span></a></li><li><a href=\"#\">2010s <span>20</span></a></li><li><a href=\"#\">2000s <span>21</span></a></li></ol></nav>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-rail{font-family:'Avenir Next',system-ui,sans-serif} .ds-rail ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem} .ds-rail a{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;min-height:2.75rem;padding:.55rem .8rem;text-decoration:none;color:var(--ink);border:1px solid var(--hair);font-weight:500;font-size:.95rem;font-variant-numeric:tabular-nums lining-nums} .ds-rail a span{font-size:.8rem;color:var(--grey);font-weight:400} .ds-rail a:hover{border-color:var(--red)} .ds-rail a:focus-visible{outline:2px solid var(--red);outline-offset:3px} .ds-rail a[aria-current=true]{background:var(--red);border-color:var(--red);color:var(--paper)} .ds-rail a[aria-current=true] span{color:var(--paper)}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square field with a 45% ink stroke; ink on hover, red border plus 1px red ring on focus; red border and 5% red tint when invalid.",
+      "html": "<div style=\"display:grid;gap:1.1rem;max-width:22rem\"><div><label class=\"ds-label\" for=\"ds-a\">City <span class=\"req\">*</span></label><input class=\"ds-input\" id=\"ds-a\"></div><div><label class=\"ds-label\" for=\"ds-b\">Postal / ZIP code <span class=\"req\">*</span></label><input class=\"ds-input is-invalid\" id=\"ds-b\" aria-invalid=\"true\"></div></div>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-label{display:block;font-family:'Avenir Next',system-ui,sans-serif;font-weight:500;font-size:.9rem;margin-bottom:.35rem;color:var(--ink)} .ds-label .req{color:var(--red)} .ds-input{width:100%;box-sizing:border-box;min-height:2.9rem;padding:.6rem .75rem;font:inherit;font-family:Newsreader,Georgia,serif;font-size:1.02rem;color:var(--ink);background:var(--paper);border:1px solid var(--stroke);border-radius:0;caret-color:var(--red);transition:border-color .2s var(--ease),box-shadow .2s var(--ease)} .ds-input:hover{border-color:var(--ink)} .ds-input:focus,.ds-input:focus-visible{outline:none;border-color:var(--red);box-shadow:0 0 0 1px var(--red)} .ds-input.is-invalid{border-color:var(--red);background:color-mix(in srgb,var(--red) 5%,var(--paper))}"
+    },
+    {
+      "name": "Radio Choice",
+      "kind": "chip",
+      "refersTo": "choice",
+      "description": "Bordered square choice with a red native radio; checked takes a red border and inset red ring.",
+      "html": "<div class=\"ds-choices\"><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-e\" checked> Yes, please</label><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-e\"> No, thank you</label></div>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-choices{display:flex;flex-wrap:wrap;gap:.6rem} .ds-choice{display:inline-flex;align-items:center;gap:.55rem;min-height:2.9rem;box-sizing:border-box;padding:.5rem 1rem .5rem .8rem;border:1px solid var(--stroke);font-family:'Avenir Next',system-ui,sans-serif;font-size:.95rem;color:var(--ink);cursor:pointer} .ds-choice:hover{border-color:var(--ink)} .ds-choice input{accent-color:var(--red);width:1.1rem;height:1.1rem;margin:0} .ds-choice:has(input:checked){border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)} .ds-choice:has(input:focus-visible){outline:2px solid var(--red);outline-offset:2px}"
+    },
+    {
+      "name": "Form Error and Confirmation",
+      "kind": "custom",
+      "refersTo": "form-error",
+      "description": "The error notice (red border, 6% red tint, deep-red text, role=alert) and the confirmation that replaces the form under a 3px red rule.",
+      "html": "<div style=\"display:grid;gap:1.6rem;max-width:30rem\"><div class=\"ds-err\" role=\"alert\">Please fill in the 2 highlighted fields.</div><div class=\"ds-confirm\"><h2>Thank you. Your address is on its way to us.</h2><p>The next printed issue of <em>Perspective</em> will come to you in the mail.</p></div></div>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-err{padding:.8rem 1rem;border:1px solid var(--red);background:color-mix(in srgb,var(--red) 6%,var(--paper));font-family:'Avenir Next',system-ui,sans-serif;font-size:.92rem;color:var(--red-deep)} .ds-confirm{border-top:3px solid var(--red);padding-top:1.6rem;font-family:Newsreader,Georgia,serif;color:var(--ink)} .ds-confirm h2{margin:0;font-weight:500;font-size:2rem;line-height:1.08} .ds-confirm p{margin:.9rem 0 0;font-size:1.06rem;line-height:1.62}"
+    },
+    {
+      "name": "Print Band",
+      "kind": "custom",
+      "refersTo": "print-band",
+      "description": "Closing cream band under a 1px red rule, headline, short text and the primary subscribe button.",
+      "html": "<section class=\"ds-print\"><h2><em>Perspective</em> in your mailbox</h2><p>Each new issue is printed and mailed twice a year.</p><a class=\"ds-btn\" href=\"#\">Subscribe to the print edition</a></section>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:2.9rem;padding:.7rem 1.25rem;font-family:'Avenir Next',system-ui,sans-serif;font-weight:700;font-size:.82rem;line-height:1.2;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;border:1px solid var(--red);border-radius:0;background:var(--red);color:var(--paper);cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)} .ds-btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)} .ds-btn:focus-visible{outline:2px solid var(--red);outline-offset:3px} .ds-btn[disabled]{opacity:.55;cursor:progress} .ds-btn svg{width:1em;height:1em;flex:none} .ds-print{background:var(--cream);border-top:1px solid var(--red);padding:3rem 2rem;display:grid;gap:1.2rem;justify-items:start;font-family:Newsreader,Georgia,serif;color:var(--ink)} .ds-print h2{margin:0;font-weight:500;font-size:2.3rem;line-height:1.08;letter-spacing:-.015em} .ds-print h2 em{font-weight:400} .ds-print p{margin:0;max-width:34em;font-size:1.06rem;line-height:1.62}"
+    },
+    {
+      "name": "Contents Row",
+      "kind": "custom",
+      "refersTo": "toc-portrait",
+      "description": "The feature's 'In this issue' list: round portrait or red dot, condensed caps title that turns red on hover, grey italic author, hairline below.",
+      "html": "<ol class=\"ds-toc\"><li><a href=\"#\"><span class=\"dot\"></span><span><span class=\"tt\">Imagining the Kingdom</span><span class=\"by\">Jacob Benjamins</span></span></a></li><li><a href=\"#\"><span class=\"dot\"></span><span><span class=\"tt\">Feminism, Faith, and Political Imagination</span><span class=\"by\">Nuzhat Khurshid</span></span></a></li></ol>",
+      "css": ":host{--red:#D2232A;--red-deep:#A8161C;--cream:#FFF4DB;--ink:#111111;--paper:#FFFFFF;--grey:#5A5650;--hair:color-mix(in srgb,#111111 18%,transparent);--stroke:color-mix(in srgb,#111111 45%,transparent);--ease:cubic-bezier(.16,1,.3,1)} .ds-toc{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);max-width:38rem} .ds-toc a{display:grid;grid-template-columns:2.25rem minmax(0,1fr);gap:.9rem;align-items:center;padding:.3rem 0;border-bottom:1px solid var(--hair);text-decoration:none;color:var(--ink)} .ds-toc a:focus-visible{outline:2px solid var(--red);outline-offset:3px} .ds-toc .dot{display:block;width:2.25rem;height:2.25rem;border-radius:50%;background:var(--red)} .ds-toc .tt{display:block;font-family:'Avenir Next Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:1.04rem;line-height:1.12;text-transform:uppercase;letter-spacing:.005em;transition:color .3s var(--ease)} .ds-toc .by{display:block;font-family:Newsreader,Georgia,serif;font-style:italic;font-size:.93rem;color:var(--grey);margin-top:.1rem} .ds-toc a:hover .tt{color:var(--red)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Contents Page, Sixty Years Long",
+    "overview": "The site is the magazine's own contents page scaled to its whole run. Every page is set on white paper in ink, ruled with 1px hairlines and red rules, and reads in the order a reader of the printed newsletter would expect: the newest issue's cover and its \"In this issue\" list first, then every volume as one ruled row, numbered in large light condensed numerals, carrying its real covers. Nothing is decorated that is not already in the print edition; the covers, sixty years of mastheads, are the content and the ornament.\n\nThe world comes from the hand-built Fall 2026 edition (`fall-2026/index.html`), whose inline stylesheet sets the same tokens the site pages use: Perspective red, cream, ink, warm grey, Newsreader to read, Avenir Next Condensed caps to label, Avenir Next for figures and buttons, the `cubic-bezier(.16, 1, .3, 1)` ease. The site pages (`assets/site.css`) are that world without the edition's essay furniture: square, flat, hairline-ruled, generous at a 17px root for an older readership. The edition's own signatures, the scalloped red mastblock, the scalloped red pull quote, the orange box, the dotted dividers and the .6rem-rounded cards, belong to the edition; on the site pages the mastblock appears only inside the cover raster (`assets/img/fall-2026-cover.webp`, a screenshot of the edition's cover).\n\nTwo pieces of chrome are borrowed and keep their own tokens: the ICS masthead (black bar, Helvetica Neue uppercase links, ICS red `#D31145` underline) copied from the philosophy site, and the ICS wine footer copied from ics-site, its tokens scoped to `.site-footer`. They frame Perspective; they are not Perspective tokens and must not be pulled into Perspective components. The ICS nav red (`#D31145`) and Perspective red (`#D2232A`) sit a few pixels apart on every page and are not reconciled.",
+    "keyCharacteristics": [
+      "White paper, ink text, one red: the red draws the rules, fills the primary button and marks the current or last-opened thing.",
+      "Ruled, not boxed: rows are separated by 1px ink-18% hairlines under a 1px ink or 3px red head rule.",
+      "Square everywhere on the site; the only curves are circular contributor portraits.",
+      "Real covers and contributor portraits are the only imagery; nothing stock, nothing generated.",
+      "Flat: no elevation shadows. Depth is the sticky cover and the sticky decade rail.",
+      "Type at a 106.25% root (1rem = 17px); every target at least 44px tall, most controls 2.75rem to 2.9rem."
+    ],
+    "rules": [
+      {
+        "name": "The One Red Rule",
+        "body": "Perspective red is the only chromatic colour in Perspective's own components; the covers and the borrowed chrome are outside the rule. It rules, it fills the one primary action, and it marks state (current, last opened, invalid). Everything else is ink, grey, cream or paper.",
+        "section": "colors"
+      },
+      {
+        "name": "The Borrowed Chrome Rule",
+        "body": "The masthead's `#000`/`#D31145` and the footer's wine `#7A0A1C` palette stay inside `.ics-header`, `.ics-mobile-menu` and `.site-footer`. Perspective components never reference them, and the chrome never takes Perspective tokens.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Voices Rule",
+        "body": "Read in Newsreader, scan in Avenir Next Condensed caps, count in Avenir Next. Figures that stand alone as data (issue lines, counts, tile labels, volume years) and every control take Avenir Next; numbers inside sentences and headlines stay in the serif. Page and band headlines are Newsreader; decade and contents titles are condensed caps.",
+        "section": "typography"
+      },
+      {
+        "name": "The Italic Title Rule",
+        "body": "The magazine's name is set in italic wherever it appears in running text or headlines, as in print.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Row Per Volume Rule",
+        "body": "Every volume is one ruled row with the same anatomy: numeral, \"VOL.\" label, year, then its covers. A volume the repository lacks keeps its row as a cream note (\"Not yet in the ICS Institutional Repository.\"), never invented issues.",
+        "section": "layout"
+      },
+      {
+        "name": "The Ruled Not Raised Rule",
+        "body": "Separation is a 1px hairline or a red rule, never a shadow or a lifted card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** take every colour from the six Perspective tokens: red `#D2232A`, deep red `#A8161C` (error text only), cream `#FFF4DB`, ink `#111111`, paper `#FFFFFF`, grey `#5A5650`, with hairlines at ink 18%.",
+      "**Do** separate rows with a 1px hairline and open lists with a 1px ink rule; open a major block (decade, form, confirmation) with a 3px red rule.",
+      "**Do** keep every site component square; reserve the circle for contributor portraits.",
+      "**Do** show real covers at 17:22 inside the 1px inset hairline outline, cropped from the top.",
+      "**Do** set labels in Avenir Next Condensed caps, figures and controls in Avenir Next with lining numerals, and reading text in Newsreader at a 34em measure.",
+      "**Do** keep interactive targets at least 44px tall (buttons and fields 2.9rem) and use the 2px red focus outline at a 3px offset.",
+      "**Do** mark a missing volume with the cream gap row rather than hiding it or filling it.",
+      "**Do** keep the ICS masthead and footer exactly as borrowed, with their own tokens in their own scopes."
+    ],
+    "donts": [
+      "**Don't** add shadows for elevation; `box-shadow` is used only as a 1px state ring on inputs and choices.",
+      "**Don't** use stock or generated imagery; covers and contributor portraits are the only pictures.",
+      "**Don't** use the ICS nav red `#D31145` or the footer wine palette in Perspective components.",
+      "**Don't** add a second accent colour to site pages; the edition's orange stays in the edition.",
+      "**Don't** set standalone figures (issue lines, counts, dates under covers) or controls in Newsreader.",
+      "**Don't** invent issues, covers or volumes to close a gap in the run."
+    ]
+  }
+}

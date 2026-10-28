@@ -1,0 +1,160 @@
+<main id="main" class="sub">
+  <div class="wrap sub__grid">
+    <div class="sub__aside">
+      <h1><em>Perspective</em>, mailed to you twice a year</h1>
+      <p class="sub__lede">Tell us where to send it and we will mail you a printed copy of each new issue, in the spring and in the autumn.</p>
+      <div class="sub__covers">
+{{covers}}
+      </div>
+      <div class="sub__notes">
+        <p><b>Questions?</b> Write to the editor at <a href="mailto:perspective-editor@icscanada.edu">perspective-editor@icscanada.edu</a>.</p>
+        <p><b>Prefer to read online?</b> Past issues back to 1967 are in the <a href="{{p}}archive/">archive</a>.</p>
+      </div>
+    </div>
+
+    <div>
+      <form class="form" id="subForm" action="{{gform}}/formResponse" method="post" novalidate>
+        <fieldset>
+          <legend>Your name</legend>
+          <div class="form__row form__row--2">
+            <div class="field"><label for="f-first">First name <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-first" name="entry.1304968994" autocomplete="given-name" required></div>
+            <div class="field"><label for="f-last">Last name <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-last" name="entry.882617324" autocomplete="family-name" required></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Mailing address</legend>
+          <div class="form__row form__row--3">
+            <div class="field"><label for="f-street">Street address <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-street" name="entry.1960757320" autocomplete="address-line1" required></div>
+            <div class="field"><label for="f-unit">Unit <span class="hint">(if any)</span></label>
+              <input class="input" id="f-unit" name="entry.980638369" autocomplete="address-line2"></div>
+          </div>
+          <div class="form__row form__row--2">
+            <div class="field"><label for="f-city">City <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-city" name="entry.673271881" autocomplete="address-level2" required></div>
+            <div class="field"><label for="f-prov">Province / state <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-prov" name="entry.1429091756" autocomplete="address-level1" required></div>
+          </div>
+          <div class="form__row form__row--2">
+            <div class="field"><label for="f-postal">Postal / ZIP code <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-postal" name="entry.1539578324" autocomplete="postal-code" required></div>
+            <div class="field"><label for="f-country">Country <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" id="f-country" name="entry.934056797" autocomplete="country-name" required></div>
+          </div>
+          <div class="form__row">
+            <div class="field"><label for="f-phone">Phone <span class="hint">(optional)</span></label>
+              <input class="input" id="f-phone" name="entry.379087307" type="tel" autocomplete="tel"></div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>And by email?</legend>
+          <div class="field">
+            <p class="q" id="q-enews">Would you also like the monthly ICS E-News &amp; Prayer Letter? <span class="req" aria-hidden="true">*</span></p>
+            <div class="choices" id="enews" role="radiogroup" aria-labelledby="q-enews" aria-required="true">
+              <label class="choice"><input type="radio" name="entry.807238148" value="Yes"> Yes, please</label>
+              <label class="choice"><input type="radio" name="entry.807238148" value="No"> No, thank you</label>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="field"><label for="f-notes">Questions or comments <span class="hint">(optional)</span></label>
+              <textarea class="input" id="f-notes" name="entry.1528638059" rows="4"></textarea></div>
+          </div>
+        </fieldset>
+
+        <div class="form__err" id="subErr" role="alert" tabindex="-1"></div>
+
+        <div class="form__foot">
+          <button class="btn" type="submit" id="subBtn">Send my address</button>
+          <p><span class="req">*</span> Required</p>
+        </div>
+        <p class="form__fallback">Your address is used only to mail <em>Perspective</em>. Trouble with this form? <a href="{{gform}}/viewform">Use the Google Form instead</a>, or email the editor.</p>
+      </form>
+
+      <div class="confirm" id="subOk" tabindex="-1">
+        <h2>Thank you. Your address is on its way to us.</h2>
+        <p>The next printed issue of <em>Perspective</em> will come to you in the mail. If anything changes, write to <a href="mailto:perspective-editor@icscanada.edu">perspective-editor@icscanada.edu</a>.</p>
+        <a class="btn btn--line" href="{{p}}{{current_dir}}/">Read the {{current_label}} issue now</a>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+/* Posts to the existing "Perspective Print Issue Subscription" Google Form, as
+   ics-site's membership form does: no-cors, so the response is opaque and a
+   network failure is the only error we can see. */
+(function () {
+  var form = document.getElementById('subForm');
+  var err = document.getElementById('subErr');
+  var btn = document.getElementById('subBtn');
+  var ok = document.getElementById('subOk');
+  var ACTION = '{{gform}}/formResponse';
+
+  function fail(msg) {
+    err.innerHTML = msg;
+    err.classList.add('is-active');
+    err.focus();
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.classList.remove('is-active');
+    var missing = [];
+    Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (el) {
+      var bad = !el.value.trim();
+      el.classList.toggle('is-invalid', bad);
+      el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      if (bad) missing.push(el);
+    });
+    var enews = document.getElementById('enews');
+    var picked = form.querySelector('input[name="entry.807238148"]:checked');
+    enews.classList.toggle('is-invalid', !picked);
+    enews.setAttribute('aria-invalid', picked ? 'false' : 'true');
+    if (missing.length || !picked) {
+      var n = missing.length + (picked ? 0 : 1);
+      fail('Please fill in the ' + n + ' highlighted field' + (n > 1 ? 's' : '') + '.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    var ctrl = 'AbortController' in window ? new AbortController() : null;
+    var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
+
+    fetch(ACTION, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)),
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function () {
+      clearTimeout(timer);
+      form.hidden = true;
+      ok.classList.add('is-active');
+      ok.focus();
+    }, function () {
+      clearTimeout(timer);
+      btn.disabled = false;
+      btn.textContent = 'Send my address';
+      fail('We could not send the form. Please check your connection and try again, or <a href="{{gform}}/viewform">use the Google Form</a>.');
+    });
+  });
+
+  form.addEventListener('input', function (e) {
+    if (e.target.classList.contains('is-invalid') && e.target.value.trim()) {
+      e.target.classList.remove('is-invalid');
+      e.target.setAttribute('aria-invalid', 'false');
+    }
+  });
+  form.addEventListener('change', function (e) {
+    if (e.target.name === 'entry.807238148') {
+      var g = document.getElementById('enews');
+      g.classList.remove('is-invalid');
+      g.setAttribute('aria-invalid', 'false');
+    }
+  });
+})();
+</script>

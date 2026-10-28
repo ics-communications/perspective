@@ -1,0 +1,13 @@
+# macOS AppleDouble and Finder files
+._*
+.DS_Store
+
+# Scraped copy of the old Google Site: kept locally for reference, not published
+info/
+
+# Downloaded issue PDFs never live in the repo (covers are rendered from them elsewhere)
+*.pdf
+
+# Tooling
+__pycache__/
+node_modules/
