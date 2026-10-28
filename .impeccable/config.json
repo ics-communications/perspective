@@ -1,0 +1,20 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "libre baskerville",
+        "createdAt": "2026-10-28T06:34:56.494Z",
+        "reason": "Footer copied directly from ics-site per the user's brief; its own face, scoped to .site-footer in assets/chrome.css"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "outfit",
+        "createdAt": "2026-10-28T06:34:56.499Z",
+        "reason": "Footer copied directly from ics-site per the user's brief; its own body face, scoped to .site-footer in assets/chrome.css"
+      }
+    ]
+  }
+}
