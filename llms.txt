@@ -1,0 +1,34 @@
+# Perspective
+
+> Perspective is the magazine of the Institute for Christian Studies (ICS), a graduate school of philosophy in Toronto, Canada. It has been published since December 1967, now twice a year in print and online, with essays by ICS faculty, students and friends on philosophy, theology, education, art and public life in the reformational Christian tradition.
+
+The current issue is Fall 2026 (Volume 60, Number 1), on imagination. Its full text is on the home page and at https://perspective.icscanada.edu/fall-2026/; a plain-text copy is at https://perspective.icscanada.edu/llms-full.txt. Earlier issues are PDFs, most of them kept in the ICS Institutional Repository.
+
+When citing, please name the author, the essay, and "Perspective, Fall 2026" (Institute for Christian Studies), and link to the essay's address below.
+
+## Fall 2026: Essays on imagination
+
+- [About this issue: What might yet be](https://perspective.icscanada.edu/fall-2026/#about): Héctor Acero Ferrer (print p. 2)
+- [Imagination & Pedagogy](https://perspective.icscanada.edu/fall-2026/#pedagogy): Beth Green (print p. 4)
+- [Imagination in the History of Philosophy and in Our Ordinary Living](https://perspective.icscanada.edu/fall-2026/#philosophy): Bob Sweetman (print p. 9)
+- [Feminism, Faith, and Political Imagination](https://perspective.icscanada.edu/fall-2026/#political): Nuzhat Khurshid (print p. 12)
+- [Imagining the Kingdom](https://perspective.icscanada.edu/fall-2026/#kingdom): Jacob Benjamins (print p. 15)
+- [Finding Wonder on the Side Streets of Biblical Narrative](https://perspective.icscanada.edu/fall-2026/#wonder): David Grills (print p. 18)
+- [ART in Orvieto, and the masthead](https://perspective.icscanada.edu/fall-2026/#orvieto) (print p. 20)
+
+## Archive
+
+- [Every past issue](https://perspective.icscanada.edu/archive/): 235 issues from December 1967 to Spring/Fall 2025, newest first, each a PDF
+- [ICS Institutional Repository](https://ir.icscanada.edu/handle/10756/271894): the catalogued collection of Perspective
+- [Perspective, Spring/Fall 2025 (vol. 59, no. 1)](https://perspective.icscanada.edu/issues/2025-v59-n1.pdf): PDF
+- [Perspective, Spring 2024 (vol. 58, no. 1)](https://ir.icscanada.edu/bitstreams/4870d4d0-7b67-41d4-86b3-8735886fd113/download): PDF
+- [Perspective, Fall 2023 (vol. 57, no. 2)](https://ir.icscanada.edu/bitstreams/8a3b6688-4bf3-40c3-9078-c2bd76b96aff/download): PDF
+- [Perspective, Spring 2023 (vol. 57, no. 1)](https://ir.icscanada.edu/bitstreams/cad15fe0-8f03-4f56-b2ff-e1469cd83e47/download): PDF
+- [Perspective, Fall 2022 (vol. 56, no. 2)](https://ir.icscanada.edu/bitstreams/96f65e42-10c2-4f94-935c-dfe0622a2f43/download): PDF
+- [Perspective, Spring 2022 (vol. 56, no. 1)](https://ir.icscanada.edu/bitstreams/afdf316e-aab0-4a21-a25a-a028f5cb0f25/download): PDF
+
+## Optional
+
+- [Subscribe to the print edition](https://perspective.icscanada.edu/subscribe/)
+- [Institute for Christian Studies](https://www.icscanada.edu/)
+- [Support ICS](https://donate.icscanada.edu/)

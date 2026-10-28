@@ -1,0 +1,6 @@
+# Perspective, the magazine of the Institute for Christian Studies
+# Search engines and AI assistants are welcome to read and cite this site.
+User-agent: *
+Allow: /
+
+Sitemap: https://perspective.icscanada.edu/sitemap.xml

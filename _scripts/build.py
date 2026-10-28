@@ -5,7 +5,10 @@ Writes index.html (the current edition itself, then its most recent past issues)
 archive/ (every past issue), subscribe/, option-a/ (the earlier home page: the
 edition's cover spread, then the archive, kept for comparison) and option-b/
 (a redirect to the home page, where option B now lives),
-and puts the ICS masthead and footer around the current edition in place.
+and puts the ICS masthead and footer around the current edition in place. Every page
+gets a canonical URL on SITE, Open Graph and Twitter cards, and schema.org JSON-LD;
+sitemap.xml, robots.txt, llms.txt and llms-full.txt (the current issue as plain text)
+are written alongside. A new edition needs its own 1200x630 social card in CURRENT["og"].
 
     python3 _scripts/build.py
 
@@ -32,6 +35,8 @@ CURRENT = {
     "slug": "2026-v60-n1",
     "cover": "assets/covers/2026-v60-n1.webp",
     "photo": "assets/img/fall-2026-fern.webp",
+    "issued": "2026-10",
+    "og": "assets/img/og-fall-2026.jpg",
     "theme": "imagination",
     "lede": ("Faced with ecological devastation, the expanding influence of artificial intelligence, "
              "and uncertainty about our common future, we can struggle to envision possibilities beyond "
@@ -50,6 +55,15 @@ CURRENT = {
 
 IR = "https://ir.icscanada.edu/handle/10756/271894"
 DONATE = "https://donate.icscanada.edu/"
+# The public address (DNS via EasyDNS); canonical URLs, the sitemap and structured data use it.
+SITE = "https://perspective.icscanada.edu/"
+ICS = {"@type": "EducationalOrganization", "@id": "https://www.icscanada.edu/#org",
+       "name": "Institute for Christian Studies", "url": "https://www.icscanada.edu/",
+       "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"}}
+PERIODICAL = {"@type": "Periodical", "@id": SITE + "#periodical", "name": "Perspective",
+              "alternateName": "Perspective Magazine", "url": SITE, "inLanguage": "en", "startDate": "1967-12",
+              "description": "The magazine of the Institute for Christian Studies in Toronto, published twice a year since 1967.",
+              "publisher": {"@id": ICS["@id"]}}
 GFORM = "https://docs.google.com/forms/d/e/1FAIpQLSfa_T1csOUSmCK0TBnZYBNx5CJUCDxDHd0ev9GXx_qG5LKweA"
 
 ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
@@ -81,7 +95,32 @@ def ledger_tree(issues):
 
 # ── chrome ──────────────────────────────────────────────────────────────
 
-def head(title, desc, p, extra="", robots=""):
+def ld(*nodes):
+    """JSON-LD for search engines and AI crawlers, one @graph per page."""
+    data = json.dumps({"@context": "https://schema.org", "@graph": list(nodes)}, ensure_ascii=False, separators=(",", ":"))
+    return f'<script type="application/ld+json">{data.replace("</", "<\\/")}</script>\n'
+
+
+def seo(title, desc, path, image=None, kind="website", graph=()):
+    """Canonical URL, Open Graph and Twitter card, and structured data. `path` is relative to SITE."""
+    image = image or CURRENT["og"]
+    url = SITE + path
+    return (f'<link rel="canonical" href="{url}">\n'
+            f'<meta property="og:type" content="{kind}">\n'
+            f'<meta property="og:site_name" content="Perspective">\n'
+            f'<meta property="og:locale" content="en_CA">\n'
+            f'<meta property="og:url" content="{url}">\n'
+            f'<meta property="og:title" content="{E(title)}">\n'
+            f'<meta property="og:description" content="{E(desc)}">\n'
+            f'<meta property="og:image" content="{SITE + image}">\n'
+            f'<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
+            f'<meta property="og:image:alt" content="Perspective, {CURRENT["label"]}: a fern growing from cracked stone, beside the magazine\'s wordmark">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n'
+            f'<link rel="alternate" type="text/plain" title="Perspective for language models" href="{SITE}llms.txt">\n'
+            + (ld(*graph) if graph else ""))
+
+
+def head(title, desc, p, extra="", robots="", path="", graph=()):
     return f"""<!doctype html>
 <html lang="en-CA">
 <head>
@@ -89,9 +128,7 @@ def head(title, desc, p, extra="", robots=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-{robots}<meta property="og:title" content="{title}">
-<meta property="og:description" content="{desc}">
-<meta name="theme-color" content="#000000">
+{robots}{seo(title, desc, path, graph=graph)}<meta name="theme-color" content="#000000">
 <link rel="icon" type="image/png" href="{p}assets/img/ics-favicon.png">
 <link rel="preload" href="{p}assets/fonts/Newsreader-Roman-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{p}assets/fonts/fonts.css">
@@ -325,8 +362,19 @@ def page_option_a(issues):
 
 def page_archive(issues):
     p = "../"
-    desc = "Every past issue of Perspective, the magazine of the Institute for Christian Studies, since 1967, each one a PDF."
-    return (head("Archive · Perspective", desc, p)
+    past = sorted([i for i in issues if not i["online"]], key=lambda x: x["issued"], reverse=True)
+    desc = (f"Every past issue of Perspective, the magazine of the Institute for Christian Studies, "
+            f"from December 1967 to {past[0]['label']}: {len(past)} issues, each a free PDF.")
+    items = [{"@type": "PublicationIssue", "name": f'Perspective, {i["label"]} (vol. {i["volume"]}, no. {i["number"]})',
+              "datePublished": i["issued"], "url": i["pdf"] if i["pdf"].startswith("http") else SITE + i["pdf"],
+              **({"sameAs": i["handle"]} if i.get("handle") else {})}
+             for i in past]
+    graph = (ICS, PERIODICAL,
+             {"@type": "CollectionPage", "@id": SITE + "archive/", "url": SITE + "archive/", "name": "Perspective archive",
+              "description": desc, "isPartOf": {"@id": SITE + "#website"}, "about": {"@id": PERIODICAL["@id"]},
+              "mainEntity": {"@type": "ItemList", "numberOfItems": len(items), "itemListOrder": "https://schema.org/ItemListOrderDescending",
+                             "itemListElement": [{"@type": "ListItem", "position": n, "item": it} for n, it in enumerate(items, 1)]}})
+    return (head("Archive: every issue since 1967 · Perspective Magazine", desc, p, path="archive/", graph=graph)
             + '<body>\n<a class="skip" href="#main">Skip to content</a>\n'
             + masthead(p, "archive")
             + '<main id="main">\n' + ledger(issues, p, "h1", "archive-t") + print_band(p) + "</main>\n"
@@ -362,7 +410,10 @@ def page_subscribe(issues):
     desc = "Ask for the print edition of Perspective, the magazine of the Institute for Christian Studies, mailed twice a year."
     tpl = (ROOT / "_scripts/subscribe.html").read_text()
     main = tpl.replace("{{covers}}", figs).replace("{{gform}}", GFORM).replace("{{current_dir}}", CURRENT["dir"]).replace("{{current_label}}", CURRENT["label"]).replace("{{p}}", p)
-    return (head("Subscribe to the print edition · Perspective", desc, p)
+    graph = (ICS, PERIODICAL, {"@type": "WebPage", "@id": SITE + "subscribe/", "url": SITE + "subscribe/",
+                               "name": "Subscribe to the print edition of Perspective", "description": desc,
+                               "isPartOf": {"@id": SITE + "#website"}, "about": {"@id": PERIODICAL["@id"]}})
+    return (head("Subscribe to the print edition · Perspective Magazine", desc, p, path="subscribe/", graph=graph)
             + '<body>\n<a class="skip" href="#main">Skip to the form</a>\n'
             + masthead(p, "subscribe")
             + main + footer(p) + "</body>\n</html>\n")
@@ -395,11 +446,40 @@ def put_between(s, name, content, anchor_re, after=True):
     return s[:at] + block + s[at:]
 
 
-def wrap_edition(src, p, active, teaser="", robots=""):
-    s = src
+def edition_seo(src, path):
+    """The current edition's search and social metadata: what a reader finds, and what an AI reads, about the issue."""
+    c = CURRENT
+    title = f'Perspective Magazine, {c["label"]}: Essays on {c["theme"].title()} · ICS'
+    authors = [by for _, _, by, _, _ in c["contents"] if by]
+    desc = (f'Perspective, the magazine of the Institute for Christian Studies (Toronto). {c["label"]}, '
+            f'Volume {c["volume"]}, Number {c["number"]}: essays on {c["theme"]} by {", ".join(authors[:-1])} and {authors[-1]}. '
+            f'Read the issue online, browse every issue since 1967, or subscribe to the print edition.')
+    url = SITE + c["dir"] + "/"
+    issue = {"@type": "PublicationIssue", "@id": url + "#issue", "url": url,
+             "name": f'Perspective, {c["label"]}: Essays on {c["theme"]}', "issueNumber": str(c["number"]),
+             "datePublished": c["issued"], "inLanguage": "en", "image": SITE + c["cover"], "description": html.unescape(c["lede"]),
+             "isPartOf": {"@type": "PublicationVolume", "volumeNumber": str(c["volume"]), "isPartOf": {"@id": PERIODICAL["@id"]}},
+             "publisher": {"@id": ICS["@id"]},
+             "hasPart": [{"@type": "Article", "@id": f"{url}#{a}", "url": f"{url}#{a}", "headline": html.unescape(t),
+                          "pageStart": str(pg), "isPartOf": {"@id": url + "#issue"}, "inLanguage": "en",
+                          **({"author": {"@type": "Person", "name": by}} if by else {})}
+                         for a, t, by, _, pg in c["contents"]]}
+    site = {"@type": "WebSite", "@id": SITE + "#website", "url": SITE, "name": "Perspective",
+            "alternateName": "Perspective Magazine", "inLanguage": "en-CA", "publisher": {"@id": ICS["@id"]}}
+    page = {"@type": "WebPage", "@id": SITE + path, "url": SITE + path, "name": title, "description": desc,
+            "isPartOf": {"@id": SITE + "#website"}, "mainEntity": {"@id": url + "#issue"},
+            "primaryImageOfPage": SITE + c["og"]}
+    src = re.sub(r"<title>.*?</title>", lambda m: f"<title>{E(title)}</title>", src, count=1)
+    src = re.sub(r'<meta name="description" content="[^"]*">', lambda m: f'<meta name="description" content="{E(desc)}">', src, count=1)
+    return src, seo(title, desc, path, image=c["og"], graph=(ICS, PERIODICAL, site, page, issue))
+
+
+def wrap_edition(src, p, active, teaser="", robots="", path=None):
+    # While it is current, the edition's own page points search engines at the home page, which carries the same issue
+    s, meta = edition_seo(src, "" if path is None else path)
     extra = f'<link rel="stylesheet" href="{p}assets/teaser.css">\n' if teaser else ""
     s = put_between(s, "head",
-                    f'{robots}<link rel="stylesheet" href="{p}assets/chrome.css">\n{extra}<script src="{p}assets/js/site.js" defer></script>\n{EDITION_FIT}',
+                    f'{robots}{meta}<link rel="stylesheet" href="{p}assets/chrome.css">\n{extra}<script src="{p}assets/js/site.js" defer></script>\n{EDITION_FIT}',
                     r"</head>", after=False)
     s = put_between(s, "masthead", masthead(p, active), r'<a class="skip"[^>]*>[^<]*</a>\n')
     s = put_between(s, "footer", teaser + footer(p), r"</body>", after=False)
@@ -427,6 +507,85 @@ def from_archive(issues, p):
 """
 
 
+def sitemap(issues):
+    urls = ["", "archive/", "subscribe/"] + [i["pdf"] for i in issues if not i["online"] and not i["pdf"].startswith("http")]
+    rows = "\n".join(f"  <url><loc>{SITE}{u}</loc></url>" for u in urls)
+    return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{rows}\n</urlset>\n'
+
+
+def robots_txt():
+    """Everyone is welcome, search engines and AI crawlers alike: the magazine wants to be read and cited."""
+    return f"""# Perspective, the magazine of the Institute for Christian Studies
+# Search engines and AI assistants are welcome to read and cite this site.
+User-agent: *
+Allow: /
+
+Sitemap: {SITE}sitemap.xml
+"""
+
+
+def llms_txt(issues):
+    """A plain-text guide to the site for language models (https://llmstxt.org)."""
+    c = CURRENT
+    url = SITE + c["dir"] + "/"
+    rows = "\n".join(f'- [{html.unescape(t)}]({url}#{a}){": " + by if by else ""} (print p. {pg})' for a, t, by, _, pg in c["contents"])
+    past = sorted([i for i in issues if not i["online"]], key=lambda x: x["issued"], reverse=True)
+    recent = "\n".join(f'- [Perspective, {i["label"]} (vol. {i["volume"]}, no. {i["number"]})]'
+                       f'({i["pdf"] if i["pdf"].startswith("http") else SITE + i["pdf"]}): PDF' for i in past[:6])
+    return f"""# Perspective
+
+> Perspective is the magazine of the Institute for Christian Studies (ICS), a graduate school of philosophy in Toronto, Canada. It has been published since December 1967, now twice a year in print and online, with essays by ICS faculty, students and friends on philosophy, theology, education, art and public life in the reformational Christian tradition.
+
+The current issue is {c["label"]} (Volume {c["volume"]}, Number {c["number"]}), on {c["theme"]}. Its full text is on the home page and at {url}; a plain-text copy is at {SITE}llms-full.txt. Earlier issues are PDFs, most of them kept in the ICS Institutional Repository.
+
+When citing, please name the author, the essay, and "Perspective, {c["label"]}" (Institute for Christian Studies), and link to the essay's address below.
+
+## {c["label"]}: Essays on {c["theme"]}
+
+{rows}
+
+## Archive
+
+- [Every past issue]({SITE}archive/): {len(past)} issues from December 1967 to {past[0]["label"]}, newest first, each a PDF
+- [ICS Institutional Repository]({IR}): the catalogued collection of Perspective
+{recent}
+
+## Optional
+
+- [Subscribe to the print edition]({SITE}subscribe/)
+- [Institute for Christian Studies](https://www.icscanada.edu/)
+- [Support ICS]({DONATE})
+"""
+
+
+def llms_full(edition):
+    """The current issue's essays as plain text, section by section, for language models."""
+    from lxml import html as lh
+    c = CURRENT
+    doc = lh.fromstring(edition)
+    for bad in doc.xpath("//script|//style|//svg|//*[@aria-hidden='true']|//nav|//header|//footer|//figure"):
+        bad.drop_tree()
+    for br in doc.iter("br"):
+        br.tail = " " + (br.tail or "")
+    parts = [f"# Perspective, {c['label']} (Volume {c['volume']}, Number {c['number']}): Essays on {c['theme']}\n\n"
+             f"The magazine of the Institute for Christian Studies, Toronto. Online at {SITE}{c['dir']}/\n"]
+    for a, t, by, _, pg in c["contents"]:
+        sec = doc.get_element_by_id(a, None)
+        if sec is None:
+            continue
+        blocks = []
+        for el in sec.iter("h2", "h3", "h4", "p", "blockquote", "li"):
+            if el.getparent() is not None and el.getparent().tag in ("blockquote", "li") and el.tag == "p":
+                continue
+            txt = re.sub(r"\s+", " ", " ".join(el.itertext()) if el.tag.startswith("h") else el.text_content()).strip()
+            if txt:
+                blocks.append(("### " if el.tag in ("h2", "h3", "h4") else "> " if el.tag == "blockquote" else "- " if el.tag == "li" else "") + txt)
+        head = f"## {html.unescape(t)}" + (f"\n\nBy {by}" if by else "") + f"\n\n{SITE}{c['dir']}/#{a} (print p. {pg})"
+        body = [b for b in blocks if b.lstrip("#> -").strip() not in (html.unescape(t), by)]
+        parts.append(head + "\n\n" + "\n\n".join(body))
+    return "\n\n".join(parts) + "\n"
+
+
 def main():
     issues = load_issues()
     out = {
@@ -437,13 +596,17 @@ def main():
     }
     ed_path = ROOT / CURRENT["dir"] / "index.html"
     edition = ed_path.read_text()
-    out[f'{CURRENT["dir"]}/index.html'] = wrap_edition(edition, "../", "current")
+    out[f'{CURRENT["dir"]}/index.html'] = wrap_edition(edition, "../", "current", path="")
 
     # The home page is the current edition itself, its paths pointed into its folder,
     # with the most recent past issues after it.
     pristine = re.sub(r"<!-- site:(\w+) -->.*?<!-- /site:\1 -->\n", "", edition, flags=re.S)
     home = re.sub(r'((?:src|href)=")(img|fonts)/', rf'\1{CURRENT["dir"]}/\2/', pristine)
     out["index.html"] = wrap_edition(home, "", "current", teaser=from_archive(issues, ""))
+    out["sitemap.xml"] = sitemap(issues)
+    out["robots.txt"] = robots_txt()
+    out["llms.txt"] = llms_txt(issues)
+    out["llms-full.txt"] = llms_full(edition)
     for rel, text in out.items():
         f = ROOT / rel
         f.parent.mkdir(parents=True, exist_ok=True)
