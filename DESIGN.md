@@ -165,7 +165,7 @@ Two pieces of chrome are borrowed and keep their own tokens: the ICS masthead (b
 One saturated red on white paper and ink, with a warm cream for quiet fields and a warm grey for secondary text.
 
 ### Primary
-- **Perspective Red** (`{colors.red}`): the print masthead red. Section rules (1px under the feature, 1px above the print band, 3px over each decade title and the form), the primary button fill, link underlines, focus outlines, the volume year, the issue line under the feature headline, the "Read online" note on the current issue's tile, the "last opened" flag, the current-decade chip on narrow screens, required-field asterisks, and text selection. 5.23:1 on paper, 4.79:1 on cream.
+- **Perspective Red** (`{colors.red}`): the print masthead red. Section rules (1px above the print band, 3px over each decade title and the form), the primary button fill, link underlines, focus outlines, the volume year, the issue line under the feature headline, the "Read online" note on the current issue's tile, the "last opened" flag, the current-decade chip on narrow screens, required-field asterisks, and text selection. 5.23:1 on paper, 4.79:1 on cream.
 - **Deep Red** (`{colors.red-deep}`): text on the red-tinted error notice only, where Perspective red on a red tint would lose contrast.
 
 ### Neutral
@@ -195,13 +195,15 @@ Edition-only: the edition also carries an orange (`#E1905D`) for its boxed stand
 The root is 106.25%, so 1rem is 17px and body text sits at 1.06rem (about 18px).
 
 ### Hierarchy
-- **Display** (Newsreader 500, clamp(2.3rem, 1.6rem + 2.6vw, 3.4rem), line-height 1.02, -0.02em, balanced): page headlines. The feature's "*Perspective*, Fall 2026: essays on imagination", the archive's "Sixty years of *Perspective*" (to 3.3rem) and the subscribe headline (to 3.7rem). The word *Perspective* is set in italic (weight 400 in the feature, print band and subscribe headlines; the archive head's italic inherits 500).
+- **Display** (Newsreader 500, clamp(2.3rem, 1.6rem + 2.6vw, 3.4rem), line-height 1.02, -0.02em, balanced): page headlines below the cover spread: the archive's "Sixty years of *Perspective*", the print band and the subscribe page.
+- **Cover headline** (Avenir Next Condensed 300, clamp(2.6rem, 6vw, 4.2rem), line-height 0.95, uppercase, 0.005em, balanced): the home page's "Fall 2026: essays on imagination", set exactly as the edition sets "In this issue".
+- **Wordmark** (Avenir Next 700, clamp(3rem, min(15.5vw, (100svh − masthead − 14rem) / 2.4), 15rem) from 52rem, line-height 0.8, −0.035em): PER/SPEC/TIVE on the home cover, the edition's own values.
 - **Headline** (Newsreader 500, clamp(1.9rem, 1.5rem + 1.5vw, 2.7rem), 1.08, -0.015em): band headings. Print band, "Earlier issues", the confirmation (to 2.5rem).
 - **Title** (Avenir Next Condensed 600, clamp(1.9rem, 1.5rem + 1.4vw, 2.7rem), line-height 1, uppercase): decade titles ("1990S"), with the issue count beside them in Avenir Next 0.88rem grey.
 - **Numeral** (Avenir Next Condensed 300, 3.2rem; 2.6rem under 40rem, line-height 1, lining figures): the volume number in each ledger row, under a "VOL." label in condensed 600 0.78rem caps at 0.08em, over the year range in Avenir Next 500 0.9rem red.
 - **Body** (Newsreader 400, 1.06rem, 1.62): running text, held to a 34em measure.
-- **Lede** (Newsreader 400, 1.12rem, 1.45; 1.15rem/1.5 on subscribe): the feature's standfirst and the subscribe introduction.
-- **Label** (Avenir Next Condensed 600, 1.04rem, 1.12, uppercase, 0.005em): contents titles in the feature's "In this issue" list; form legends use the same face at 1.25rem.
+- **Lede** (Newsreader 400, `--lede` 1.32rem, 1.5rem from 52rem, line-height 1.35, Perspective red): the introduction's question in the cream band under the cover spread, set as the edition's standfirsts. The subscribe introduction stays ink at 1.15rem/1.5.
+- **Label** (Avenir Next Condensed 600, 1.12rem, 1.12, uppercase, 0.005em): contents titles in the home cover's contents list, as in the edition; form legends use the same face at 1.25rem. Page numbers and the issue line are Avenir Next 400 at 0.88rem in warm grey.
 - **Figure** (Avenir Next 500, 0.9 to 0.95rem, lining figures; tabular in the decade rail): issue lines, counts, dates, form labels, notes. Issue tile labels run at 0.82rem/1.3.
 - **Button** (Avenir Next 700, 0.82rem, 1.2, uppercase, 0.05em): every button.
 
@@ -214,7 +216,7 @@ The root is 106.25%, so 1rem is 17px and body text sits at 1.06rem (about 18px).
 
 A single 82rem column (`.wrap`) centred with a fluid gutter of clamp(1rem, 5vw, 4.5rem). Text measure is 34em. The root is generous (17px) and every interactive row or control is at least 44px tall: buttons and fields 2.9rem, decade chips 2.75rem, the wide decade rail's links about 44px.
 
-- **Feature (home):** one column below 60rem, the cover first at up to 78svh. From 60rem, two columns, the cover at its own 1100:1424 aspect ratio and the height of the viewport under the 100px masthead (capped at 62rem), sticky to the top, with the text column beside it vertically centred.
+- **Feature (home):** the edition's cover spread. One column below 52rem: the cover at 92svh, then the contents. From 52rem, two equal columns at least the viewport under the masthead tall. The photo fills the cover column whatever its height; the wordmark and ICS mark sit in a sticky layer the height of that viewport, so they hold the bottom of the screen while the longer contents column scrolls past. Contents rows are the edition's: 2.9rem portraits, 0.72rem vertical padding, page numbers right.
 - **Archive:** the head is two columns (5fr / 6fr) from 60rem. Below 64rem the decade rail is a wrapping row of bordered chips above the ledger; from 64rem it becomes an 11rem sticky column (1.5rem from the top) with a red right rule, beside the ledger.
 - **Ledger rows:** a numeral column (4.6rem; 6.5rem from 40rem) and an issue grid of auto-fill tiles (min 6.4rem; 7.6rem to 8.6rem from 40rem).
 - **Print band:** full-bleed cream; inside the wrap, headline, text and action in three columns (5fr / 4fr / auto) from 60rem.
@@ -228,7 +230,7 @@ A single 82rem column (`.wrap`) centred with a fluid gutter of clamp(1rem, 5vw, 
 
 ## Elevation & Depth
 
-Flat. No surface casts a shadow. Depth comes from position: the feature cover and the decade rail stay sticky while the page scrolls past, and the masthead sits above everything in black. `box-shadow` appears only as a 1px state ring: the red ring around a focused input (`0 0 0 1px` red) and the inset red ring of a checked radio choice (`inset 0 0 0 1px` red).
+Flat. No surface casts a shadow. Depth comes from position: the cover's wordmark and the decade rail stay sticky while the page scrolls past, and the masthead sits above everything in black. `box-shadow` appears only as a 1px state ring: the red ring around a focused input (`0 0 0 1px` red) and the inset red ring of a checked radio choice (`inset 0 0 0 1px` red).
 
 ### Named Rules
 **The Ruled Not Raised Rule.** Separation is a 1px hairline or a red rule, never a shadow or a lifted card.
@@ -237,7 +239,7 @@ Flat. No surface casts a shadow. Depth comes from position: the feature cover an
 
 Square. Buttons, inputs, choices, chips, tiles, the error notice, the flag and the bands all have 0 radius; inputs explicitly reset to `border-radius: 0`. The only curve is the circle: contributor portraits in the contents list (2.25rem, 50%) and the solid red dot that stands in for a missing portrait. Covers sit inside a 1px hairline outline inset by 1px, so a pale cover still has an edge against white paper.
 
-Rules carry the structure: 1px ink over a list or ledger, 1px ink-18% between rows, 3px red over each decade title, the subscribe form and the confirmation, 1px red under the feature and over the print band.
+Rules carry the structure: 1px ink over a list or ledger, 1px ink-18% between rows, 3px red over each decade title, the subscribe form and the confirmation, 1px ink over the introduction band and 1px red over the print band.
 
 The edition keeps its own form language (scalloped mastblock and pull-quote edges, dotted dividers, .6rem-rounded cards); site components do not adopt it.
 
@@ -253,10 +255,10 @@ Square, confident, Avenir Next bold caps, as the edition's Contents button.
 - **Disabled:** 0.55 opacity with a progress cursor; the subscribe button also reads "Sending…".
 
 ### Feature (the new issue)
-The home page's front door. The edition's cover screenshot (with its scalloped red mastblock and stacked PER/SPEC/TIVE) is on the left, a decorative link to the edition. On the right: the display headline, the issue line in red Avenir Next 500 ("Volume 60, Number 1 · The magazine of the Institute for Christian Studies"), the lede as a blockquote with a grey Avenir Next citation, the primary and line buttons, and the "In this issue" list. Each contents row is a link into the edition's anchor: a 2.25rem round portrait (or red dot), the title in condensed caps, the author in grey italic Newsreader, a hairline below, and the title turning red on hover. The cover image scales by 1.5% on hover over 1.2s. A 1px red rule closes the section.
+The home page's front door, rebuilt from the edition's own cover (`fall-2026/index.html`, `header.cover`) so the two read as one object. On the left, a live copy of the cover rather than a picture of it: the fern photo (`assets/img/<dir>-fern.webp`), the scalloped red mastblock, the PER/SPEC/TIVE wordmark and the ICS mark (drawn from the edition's own SVG at build time), the whole face a decorative link to the edition. On the right: the cover headline in condensed light caps, the issue line in grey, the edition's "In this issue" contents list with page numbers and the print-edition note, then "Read the Fall 2026 issue" and "Get it in print". Below the spread, a cream band carries the introduction's question in red Newsreader with its attribution and a "Read the introduction" link.
 
 ### Volume ledger
-The archive, rendered on the home page and on `archive/`. A head (display headline plus a note on the run and its count, linked to the ICS Institutional Repository), then decades newest first, each opened by a condensed caps decade title over a 3px red rule with its issue count on the right. Within a decade, one ledger row per volume (see the Layout rule): numeral column, then an ordered grid of issue tiles, a hairline under each row.
+The archive, rendered on the home page under `#archive`; the nav's Archive link jumps there from every page, and `archive/` is only a redirect for old links. A head (display headline plus a note on the run and its count, linked to the ICS Institutional Repository), then decades newest first, each opened by a condensed caps decade title over a 3px red rule with its issue count on the right. Within a decade, one ledger row per volume (see the Layout rule): numeral column, then an ordered grid of issue tiles, a hairline under each row.
 
 ### Decade rail
 Navigation through the ledger, each entry a decade and its issue count ("1990s 44").
@@ -272,7 +274,7 @@ A real cover above two lines of label. The cover sits at 17:22 on a cream ground
 A ledger row for a volume the Repository does not have (today, Volume 59). The numeral column shows "VOL." and the number without a year; the issue column is a cream panel stretched to the row's height with the note "Not yet in the ICS Institutional Repository." in Avenir Next 0.9rem grey.
 
 ### Print band
-The closing invitation on the home and archive pages. A full-width cream band under a 1px red rule: the headline "*Perspective* in your mailbox", a short paragraph with the editor's address in grey Avenir Next, and the primary "Subscribe to the print edition" button.
+The closing invitation on the home page. A full-width cream band under a 1px red rule: the headline "*Perspective* in your mailbox", a short paragraph with the editor's address in grey Avenir Next, and the primary "Subscribe to the print edition" button.
 
 ### Subscribe form
 One short form posting to the existing Google Form.
@@ -288,13 +290,13 @@ One short form posting to the existing Google Form.
 On Option B (`option-b/`, noindex) the edition itself is the home page, and a scoped band (`assets/teaser.css`, everything under `.from-archive`) closes it: a 1px red top rule, the headline "Earlier issues" with a count line, a line button "Browse every issue", and the eight most recent repository issues as issue tiles. It reproduces the site's issue tile and line button inside the edition, which keeps its own stylesheet.
 
 ### Navigation (borrowed)
-The ICS masthead, unchanged from the philosophy site: a black bar 100px tall (69px under 1200px) with the white-and-red ICS logo, then Helvetica Neue 600 0.8rem uppercase links at 0.14em tracking; hover and the current page take a 1.5px ICS-red underline at a 6px offset. An "ICS" dropdown lists Institute links, right-aligned under a 2px red top border. Under 1200px a three-bar asymmetric burger opens a full-screen black overlay. Items: Home, the current edition's label, Archive, Subscribe. The ICS footer (Libre Baskerville and Outfit, recoloured to the masthead: black ground, white text, a 2px ICS-red top rule and red hover underlines) is injected by `assets/js/footer.js` and is otherwise borrowed as is.
+The ICS masthead, unchanged from the philosophy site: a black bar 100px tall (69px under 1200px) with the white-and-red ICS logo, then Helvetica Neue 600 0.8rem uppercase links at 0.14em tracking; hover and the current page take a 1.5px ICS-red underline at a 6px offset. Under 1200px a three-bar asymmetric burger opens a full-screen black overlay. Items: Home, the current edition's label, Archive (a jump to the home page's archive), Subscribe. There is no ICS menu; the ICS logo and the footer carry the Institute's links. The ICS footer (Libre Baskerville and Outfit, recoloured to the masthead: black ground, white text, a 2px ICS-red top rule and red hover underlines) is injected by `assets/js/footer.js` and is otherwise borrowed as is.
 
 ### Adding a new edition
 The edition on the front door is the `CURRENT` record in `_scripts/build.py`. To ship the next one:
 1. Put the hand-built edition in its own folder (e.g. `spring-2027/index.html`) with `img/` and `fonts/` beside it, a `<a class="skip">` link (the masthead is inserted after it) and a `<title>` beginning "Perspective · ". Its cover markup should use `.cover` / `.cover .face` and `.cover h1` so the build's viewport fit applies.
-2. Add its cover tile as `assets/covers/<slug>.webp` (440×569) and the feature image as `assets/img/<dir>-cover.webp`, a screenshot of the edition's cover face at 680×880 @2x scaled to 1100px wide, with its provenance `.json` beside it.
-3. Change `CURRENT` in `_scripts/build.py`: `dir`, `label`, `volume`, `number`, `slug`, `cover`, `feature`, `theme`, `lede`, `lede_by`, and the six `contents` rows (anchor, title, author, portrait file or `None` for the red dot).
+2. Add its cover tile as `assets/covers/<slug>.webp` (440×569) and the cover photo as `assets/img/<dir>-<name>.webp` (1000px wide, WebP q60), with its provenance `.json` sidecar.
+3. Change `CURRENT` in `_scripts/build.py`: `dir`, `label`, `volume`, `number`, `slug`, `cover`, `photo`, `theme`, `lede`, `lede_by`, and the `contents` rows (anchor, title, author or `None`, portrait file, `"dot"` for the red dot or `None` for none, print page).
 4. Add the outgoing edition (Fall 2026) as a record in `assets/data/issues.json` once its PDF is in the Repository; otherwise it drops out of the ledger when `CURRENT` moves.
 5. Check the values the build still hardcodes: `load_issues()` sets the current issue's `year: 2026`, `issued: "2026-10"` and 440×569; `_scripts/subscribe.html` links "Read the Fall 2026 issue now" to `fall-2026/`; the archive head says "Sixty years" and "Volume 59 is still to be added."
 6. Run `python3 _scripts/build.py`.

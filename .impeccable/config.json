@@ -14,6 +14,12 @@
         "value": "outfit",
         "createdAt": "2026-10-28T06:34:56.499Z",
         "reason": "Footer copied directly from ics-site per the user's brief; its own body face, scoped to .site-footer in assets/chrome.css"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#8d8a83",
+        "createdAt": "2026-10-28T12:43:02.550332Z",
+        "reason": "The edition's own placeholder behind the cover photo (fall-2026/index.html .cover .face), copied to the home cover spread"
       }
     ]
   }

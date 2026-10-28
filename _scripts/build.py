@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the Perspective site.
 
-Writes index.html (option A: the new issue, then every volume), archive/,
+Writes index.html (option A: the new issue, then every volume), archive/ (a redirect to it),
 subscribe/ and option-b/ (option B: the edition itself as the home page),
 and puts the ICS masthead and footer around the current edition in place.
 
@@ -29,33 +29,25 @@ CURRENT = {
     "number": 1,
     "slug": "2026-v60-n1",
     "cover": "assets/covers/2026-v60-n1.webp",
-    "feature": "assets/img/fall-2026-cover.webp",
+    "photo": "assets/img/fall-2026-fern.webp",
     "theme": "imagination",
     "lede": ("Faced with ecological devastation, the expanding influence of artificial intelligence, "
              "and uncertainty about our common future, we can struggle to envision possibilities beyond "
              "the arrangements we already know. How might imagination, then, help us recover the capacity to act?"),
     "lede_by": "Héctor Acero Ferrer, from his introduction to the issue",
     "contents": [
-        ("about", "About this issue: What might yet be", "Héctor Acero Ferrer", "head-acero-ferrer.jpg"),
-        ("pedagogy", "Imagination &amp; Pedagogy", "Beth Green", "head-green.jpg"),
-        ("philosophy", "Imagination in the History of Philosophy and in Our Ordinary Living", "Bob Sweetman", "head-sweetman.jpg"),
-        ("political", "Feminism, Faith, and Political Imagination", "Nuzhat Khurshid", None),
-        ("kingdom", "Imagining the Kingdom", "Jacob Benjamins", "head-benjamins.jpg"),
-        ("wonder", "Finding Wonder on the Side Streets of Biblical Narrative", "David Grills", "head-grills.jpg"),
+        ("about", "About this issue: What might yet be", "Héctor Acero Ferrer", "head-acero-ferrer.jpg", 2),
+        ("pedagogy", "Imagination &amp; Pedagogy", "Beth Green", "head-green.jpg", 4),
+        ("philosophy", "Imagination in the History of Philosophy and in Our Ordinary Living", "Bob Sweetman", "head-sweetman.jpg", 9),
+        ("political", "Feminism, Faith, and Political Imagination", "Nuzhat Khurshid", "dot", 12),
+        ("kingdom", "Imagining the Kingdom", "Jacob Benjamins", "head-benjamins.jpg", 15),
+        ("wonder", "Finding Wonder on the Side Streets of Biblical Narrative", "David Grills", "head-grills.jpg", 18),
+        ("orvieto", "ART in Orvieto, and the masthead", None, None, 20),
     ],
 }
 
 IR = "https://ir.icscanada.edu/handle/10756/271894"
 GFORM = "https://docs.google.com/forms/d/e/1FAIpQLSfa_T1csOUSmCK0TBnZYBNx5CJUCDxDHd0ev9GXx_qG5LKweA"
-
-ICS_LINKS = [
-    ("https://www.icscanada.edu/", "ICS Home"),
-    ("https://www.icscanada.edu/academics", "Programs"),
-    ("https://www.icscanada.edu/about/become-a-member", "Become a Member"),
-    ("https://www.icscanada.edu/donate", "Donate"),
-    ("https://www.icscanada.edu/critical-faith-podcast", "Critical Faith Podcast"),
-    (IR, "Institutional Repository"),
-]
 
 ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
 
@@ -112,7 +104,7 @@ def nav_items(p, home):
     return [
         ("home", "Home", home),
         ("current", CURRENT["label"], p + CURRENT["dir"] + "/"),
-        ("archive", "Archive", p + "archive/"),
+        ("archive", "Archive", home + "#archive"),
         ("subscribe", "Subscribe", p + "subscribe/"),
     ]
 
@@ -126,8 +118,6 @@ def masthead(p, active, home=None, items=None):
         desk.append(f'        <li class="ics-nav__item{" ics-nav__item--active" if on else ""}">\n'
                     f'          <a class="ics-nav__link" href="{href}"{cur}>{label}</a>\n        </li>')
         mob.append(f'  <a class="ics-mobile-menu__link{" ics-mobile-menu__link--current" if on else ""}" href="{href}"{cur}>{label}</a>')
-    drop = "\n".join(f'            <a class="ics-dropdown__link" href="{h}">{E(t)}</a>' for h, t in ICS_LINKS)
-    sub = "\n".join(f'      <a href="{h}">{E(t)}</a>' for h, t in ICS_LINKS)
     return f"""<header class="ics-header">
   <div class="ics-header__inner">
     <a class="ics-header__logo-link" href="https://www.icscanada.edu/">
@@ -138,12 +128,6 @@ def masthead(p, active, home=None, items=None):
     <nav aria-label="Main navigation">
       <ul class="ics-nav">
 {chr(10).join(desk)}
-        <li class="ics-nav__item">
-          <button class="ics-nav__link" aria-expanded="false" aria-haspopup="true">ICS<span class="ics-nav__caret"></span></button>
-          <div class="ics-dropdown">
-{drop}
-          </div>
-        </li>
       </ul>
     </nav>
 
@@ -156,12 +140,6 @@ def masthead(p, active, home=None, items=None):
 <div class="ics-mobile-menu" id="mobileMenu">
   <button class="ics-mobile-menu__close" aria-label="Close menu" type="button">&times;</button>
 {chr(10).join(mob)}
-  <div class="ics-mobile-menu__group">
-    <span class="ics-mobile-menu__link">ICS</span>
-    <div class="ics-mobile-menu__sub">
-{sub}
-    </div>
-  </div>
 </div>
 """
 
@@ -173,32 +151,61 @@ def footer(p):
 
 # ── sections ────────────────────────────────────────────────────────────
 
+def edition_logo():
+    """The ICS mark from the edition's cover, so the home page cover uses the same drawing."""
+    src = (ROOT / CURRENT["dir"] / "index.html").read_text()
+    m = re.search(r'<svg class="logo".*?</svg>', src, re.S)
+    return re.sub(r' role="img" aria-label="[^"]*"', ' aria-hidden="true"', m.group(0))
+
+
 def feature(p):
+    """The edition's cover spread: its cover on the left, its contents on the right,
+    in the edition's own type and spacing (fall-2026/index.html, header.cover)."""
     c = CURRENT
     rows = []
-    for anchor, title, by, img in c["contents"]:
-        face = (f'<img src="{p}{c["dir"]}/img/{img}" alt="" width="271" height="271" loading="lazy">'
-                if img else '<span class="dot" aria-hidden="true"></span>')
-        rows.append(f'<li><a href="{p}{c["dir"]}/#{anchor}">{face}<span><span class="tt">{title}</span>'
-                    f'<span class="by">{by}</span></span></a></li>')
+    for anchor, title, by, img, pg in c["contents"]:
+        if img == "dot":
+            face = '<span class="dot" aria-hidden="true"></span>'
+        elif img:
+            face = f'<img src="{p}{c["dir"]}/img/{img}" alt="" width="271" height="271" loading="lazy">'
+        else:
+            face = '<span class="dot ghost" aria-hidden="true"></span>'
+        byline = f'<span class="by">{by}</span>' if by else ""
+        rows.append(f'<li><a href="{p}{c["dir"]}/#{anchor}">{face}<span class="t"><span class="tt">{title}</span>{byline}</span>'
+                    f'<span class="pg">p.&nbsp;{pg}</span></a></li>')
     return f"""<section class="feature" aria-labelledby="feature-t">
-  <a class="feature__cover" href="{p}{c["dir"]}/" tabindex="-1" aria-hidden="true">
-    <img src="{p}{c["feature"]}" alt="" width="1100" height="1424" fetchpriority="high">
+  <a class="feature__face" href="{p}{c["dir"]}/" tabindex="-1" aria-hidden="true">
+    <img src="{p}{c["photo"]}" alt="" width="1000" height="1508" fetchpriority="high">
+    <span class="mastblock">
+      <span>Institute for<br>Christian Studies</span>
+      <span>{c["label"]}<br>Volume {c["volume"]}&nbsp;&nbsp;•&nbsp;&nbsp;Number {c["number"]}</span>
+      <span>Read <em>Perspective</em> online:<br>icscanada.edu/perspective</span>
+    </span>
+    <span class="feature__pin">
+      <span class="wordmark"><span>PER</span><span>SPEC</span><span>TIVE</span></span>
+      {edition_logo()}
+    </span>
   </a>
   <div class="feature__text">
-    <h1 id="feature-t"><em>Perspective</em>, {c["label"]}: essays on {c["theme"]}</h1>
+    <h1 id="feature-t"><span class="vh">Perspective, </span>{c["label"]}: essays on {c["theme"]}</h1>
     <p class="feature__issue">Volume {c["volume"]}, Number {c["number"]} · The magazine of the Institute for Christian Studies</p>
-    <blockquote class="feature__lede">
-      <p>{c["lede"]}</p>
-      <cite>{c["lede_by"]}</cite>
-    </blockquote>
+    <ol class="toc" aria-label="In this issue">
+{chr(10).join(rows)}
+    </ol>
+    <p class="feature__note">Page numbers refer to the print edition.</p>
     <div class="feature__acts">
       <a class="btn" href="{p}{c["dir"]}/">Read the {c["label"]} issue {ARROW}</a>
       <a class="btn btn--line" href="{p}subscribe/">Get it in print</a>
     </div>
-    <ol class="toc" aria-label="In this issue">
-{chr(10).join(rows)}
-    </ol>
+  </div>
+</section>
+<section class="intro" aria-label="From the introduction">
+  <div class="wrap">
+    <blockquote class="intro__q">
+      <p>{c["lede"]}</p>
+      <cite>{c["lede_by"]}</cite>
+    </blockquote>
+    <a class="intro__more" href="{p}{c["dir"]}/#about">Read the introduction {ARROW}</a>
   </div>
 </section>
 """
@@ -304,14 +311,23 @@ def page_home(issues):
             + footer(p) + "</body>\n</html>\n")
 
 
-def page_archive(issues):
-    p = "../"
-    desc = "Every issue of Perspective, the magazine of the Institute for Christian Studies, from 1967 to today, with links to each PDF."
-    return (head("Archive · Perspective", desc, p)
-            + '<body>\n<a class="skip" href="#main">Skip to content</a>\n'
-            + masthead(p, "archive")
-            + '<main id="main">\n' + ledger(issues, p, "h1", "archive-t") + print_band(p) + "</main>\n"
-            + footer(p) + "</body>\n</html>\n")
+def page_archive_redirect():
+    """The archive lives on the home page now; old /archive/ links land there."""
+    return """<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Archive · Perspective</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="../#archive">
+<meta http-equiv="refresh" content="0; url=../#archive">
+<script>location.replace('../#archive');</script>
+</head>
+<body>
+<p>The archive is now on the <a href="../#archive">Perspective home page</a>.</p>
+</body>
+</html>
+"""
 
 
 def page_subscribe(issues):
@@ -379,7 +395,7 @@ def from_archive(issues, p):
         <h2 id="from-archive-t">Earlier issues</h2>
         <p>{total} issues of <em>Perspective</em> since 1967, each one a PDF in the ICS Institutional Repository. These are the most recent.</p>
       </div>
-      <a class="btn btn--line" href="{p}archive/">Browse every issue {ARROW}</a>
+      <a class="btn btn--line" href="{p}#archive">Browse every issue {ARROW}</a>
     </div>
     <ol>
 {tiles}
@@ -393,7 +409,7 @@ def main():
     issues = load_issues()
     out = {
         "index.html": page_home(issues),
-        "archive/index.html": page_archive(issues),
+        "archive/index.html": page_archive_redirect(),
         "subscribe/index.html": page_subscribe(issues),
     }
     ed_path = ROOT / CURRENT["dir"] / "index.html"
@@ -401,7 +417,7 @@ def main():
     out[f'{CURRENT["dir"]}/index.html'] = wrap_edition(edition, "../", "current", "../")
 
     # Option B: the edition is the home page. Same edition, its paths pointed back at fall-2026/.
-    b_items = [("current", f'{CURRENT["label"]} issue', "./"), ("archive", "Archive", "../archive/"), ("subscribe", "Subscribe", "../subscribe/")]
+    b_items = [("current", f'{CURRENT["label"]} issue', "./"), ("archive", "Archive", "../#archive"), ("subscribe", "Subscribe", "../subscribe/")]
     pristine = re.sub(r"<!-- site:(\w+) -->.*?<!-- /site:\1 -->\n", "", edition, flags=re.S)
     b = re.sub(r'((?:src|href)=")(img|fonts)/', rf'\1../{CURRENT["dir"]}/\2/', pristine)
     b = b.replace("<title>Perspective · ", "<title>Option B · Perspective · ", 1)

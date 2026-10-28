@@ -44,34 +44,64 @@ a:hover { color: var(--red); }
 .btn svg { width: 1em; height: 1em; flex: none; }
 .btn[disabled] { opacity: .55; cursor: progress; }
 
-/* ── The new issue ─────────────────────────────────────────────── */
-.feature { display: grid; border-bottom: 1px solid var(--red); }
-.feature__cover { display: block; position: relative; background: #8d8a83; overflow: hidden; }
-.feature__cover img { width: 100%; height: 100%; object-fit: cover; object-position: 0 0; aspect-ratio: 680 / 880; transition: transform 1.2s var(--ease); }
-.feature__cover:hover img { transform: scale(1.015); }
-.feature__text { padding: clamp(1.5rem, 2.4vw, 2rem) var(--gutter) clamp(2.5rem, 5vw, 4rem); display: flex; flex-direction: column; justify-content: center; }
-.feature h1 { font-family: var(--text); font-weight: 500; font-size: clamp(2.3rem, 1.6rem + 2.6vw, 3.4rem); line-height: 1.02; letter-spacing: -.02em; text-wrap: balance; }
-.feature h1 em { font-style: italic; font-weight: 400; }
-.feature__issue { font-family: var(--sans); font-weight: 500; font-size: .95rem; color: var(--red); margin-top: .9rem; font-variant-numeric: lining-nums; }
-.feature__lede { font-size: 1.12rem; line-height: 1.45; max-width: var(--measure); margin-top: 1.1rem; text-wrap: pretty; }
-.feature__lede cite { display: block; font-style: normal; font-family: var(--sans); font-size: .85rem; color: var(--grey); margin-top: .55rem; }
-.feature__acts { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.3rem; }
+/* ── The new issue: the edition's cover spread ──────────────────
+   Every value here is the edition's own (fall-2026/index.html, header.cover),
+   so the front door and the issue read as one object. */
+:root { --mast: 69px; --lede: 1.32rem; }
+@media (min-width: 52rem) { :root { --lede: 1.5rem; } }
+@media (min-width: 1201px) { :root { --mast: 100px; } }
 
-.toc { list-style: none; padding: 0; margin-top: 1.4rem; border-top: 1px solid var(--ink); max-width: 38rem; }
-.toc a { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: .9rem; align-items: center; padding: .3rem 0; border-bottom: 1px solid var(--hair); text-decoration: none; }
-.toc img, .toc .dot { width: 2.25rem; height: 2.25rem; border-radius: 50%; object-fit: cover; }
+.feature { display: grid; }
+.feature__face { position: relative; display: block; overflow: clip; color: var(--paper); min-height: 92svh; background: #8d8a83; text-decoration: none; }
+.feature__face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 55%; transition: transform 1.2s var(--ease); }
+.feature__face:hover { color: var(--paper); }
+.feature__face:hover img { transform: scale(1.015); }
+.mastblock { position: absolute; top: 0; left: 0; z-index: 1; max-width: 19rem; background: var(--red); padding: 1.1rem 1.4rem 1.2rem var(--gutter); font-family: var(--sans); font-weight: 700; font-size: .92rem; line-height: 1.25; }
+/* Scalloped right edge, as on the printed cover */
+.mastblock { --r: .45rem; --bite: radial-gradient(circle at 100% 50%, #0000 var(--r), #000 calc(var(--r) + .5px)) left / 100% 1.2rem no-repeat round; padding-right: calc(1.4rem + var(--r)); -webkit-mask: var(--bite); mask: var(--bite); }
+.mastblock > span { display: block; padding: .55rem 0; border-bottom: 1px dotted color-mix(in srgb, var(--paper) 75%, transparent); }
+.mastblock > span:first-child { padding-top: 0; text-transform: uppercase; }
+.mastblock > span:last-child { border-bottom: 0; padding-bottom: 0; font-weight: 500; }
+/* The wordmark and logo hold the bottom of the screen while the contents column, longer than the cover, scrolls past */
+.feature__pin { position: sticky; top: 0; display: block; height: 92svh; }
+/* Three lines at .8 line-height, kept below the mastblock on short or zoomed screens */
+.wordmark { position: absolute; left: calc(var(--gutter) * -.15); bottom: 1.2rem; z-index: 1; font-family: var(--sans); font-weight: 700; font-size: clamp(3rem, min(26vw, (92svh - 14rem) / 2.4), 11.5rem); line-height: .8; letter-spacing: -.035em; }
+.wordmark span { display: block; }
+.feature__face .logo { position: absolute; right: var(--gutter); bottom: 1.8rem; z-index: 1; width: clamp(3.4rem, 9vw, 5rem); }
+
+.feature__text { padding: 3rem var(--gutter) 4rem; display: flex; flex-direction: column; justify-content: center; }
+.feature h1 { font-family: var(--cond); font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: .95; text-transform: uppercase; letter-spacing: .005em; text-wrap: balance; }
+.feature__issue { font-family: var(--sans); font-size: .88rem; color: var(--grey); margin: .7rem 0 1.4rem; font-variant-numeric: lining-nums; }
+.feature__note { font-family: var(--sans); font-size: .88rem; color: var(--grey); margin-top: 1rem; }
+.feature__acts { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
+
+.toc { list-style: none; padding: 0; border-top: 1px solid var(--ink); }
+.toc a { display: grid; grid-template-columns: 2.9rem minmax(0, 1fr) auto; gap: .9rem; align-items: center; padding: .72rem 0; border-bottom: 1px solid var(--hair); text-decoration: none; }
+.toc img, .toc .dot { width: 2.9rem; height: 2.9rem; border-radius: 50%; object-fit: cover; }
 .toc .dot { display: block; background: var(--red); }
-.toc .tt { display: block; font-family: var(--cond); font-weight: 600; font-size: 1.04rem; line-height: 1.12; text-transform: uppercase; letter-spacing: .005em; transition: color .3s var(--ease); }
-.toc .by { display: block; font-style: italic; font-size: .93rem; color: var(--grey); margin-top: .1rem; }
+.toc .dot.ghost { background: none; }
+.toc .tt { display: block; font-family: var(--cond); font-weight: 600; font-size: 1.12rem; line-height: 1.12; text-transform: uppercase; letter-spacing: .005em; transition: color .3s var(--ease); }
+.toc .by { display: block; font-style: italic; font-size: .95rem; color: var(--grey); margin-top: .1rem; }
+.toc .pg { font-family: var(--sans); font-size: .88rem; color: var(--grey); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.toc a:hover { color: inherit; }
 .toc a:hover .tt { color: var(--red); }
 
-@media (min-width: 60rem) {
-  .feature { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
-  .feature__cover { position: sticky; top: 0; height: min(calc(100svh - 100px), 62rem); aspect-ratio: 1100 / 1424; }
-  .feature__cover img { aspect-ratio: auto; position: absolute; inset: 0; }
+@media (min-width: 52rem) {
+  .feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: calc(100svh - var(--mast)); }
+  .feature__face { min-height: calc(100svh - var(--mast)); }
+  .feature__pin { height: calc(100svh - var(--mast)); }
+  .wordmark { font-size: clamp(3rem, min(15.5vw, (100svh - var(--mast) - 14rem) / 2.4), 15rem); }
 }
-@media (max-width: 59.99rem) {
-  .feature__cover img { max-height: 78svh; }
+
+/* The introduction's question, set as the edition sets its standfirsts */
+.intro { background: var(--cream); border-top: 1px solid var(--ink); padding: clamp(3rem, 6vw, 4.5rem) 0; }
+.intro .wrap { display: grid; gap: 1.4rem; justify-items: start; }
+.intro__q p { font-family: var(--text); font-size: var(--lede); line-height: 1.35; color: var(--red); max-width: 34em; text-wrap: pretty; }
+.intro__q cite { display: block; font-style: normal; font-family: var(--sans); font-size: .88rem; color: var(--grey); margin-top: .8rem; }
+.intro__more { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--sans); font-weight: 700; font-size: .82rem; text-transform: uppercase; letter-spacing: .05em; text-decoration: none; min-height: 2.75rem; }
+.intro__more svg { width: 1em; height: 1em; }
+@media (min-width: 60rem) {
+  .intro .wrap { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 3rem; }
 }
 
 /* ── The archive: a ledger of volumes ───────────────────────────── */
