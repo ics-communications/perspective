@@ -13,7 +13,7 @@ Audience and job: ICS supporters arrive to read the new issue; alumni and resear
 
 Constraints: nav from the philosophy site masthead (black bar, uppercase white links, ICS red underline); footer copied directly from ics-site (`js/footer.js` and its CSS); the Fall 2026 edition's design untouched; no GitHub Pages and no CNAME; relative URLs throughout.
 
-Unattended run: the decision page was not served because the user asked for no questions overnight; the dealt lead was taken. Unresolved: option A or B for the root; whether to show Volume 59 once it is in the repository.
+Unattended run: the decision page was not served because the user asked for no questions overnight; the dealt lead was taken. Resolved 2026-10-28: option B is the root (the edition as the home page); option A is kept at `option-a/` (noindex), and `option-b/` redirects to the root. Unresolved: whether to show Volume 59 once it is in the repository.
 
 ## Direction contract
 

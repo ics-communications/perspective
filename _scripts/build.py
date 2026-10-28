@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Build the Perspective site.
 
-Writes index.html (option A: the new issue, then every volume), archive/ (a redirect to it),
-subscribe/ and option-b/ (option B: the edition itself as the home page),
+Writes index.html (the current edition itself, then its most recent past issues),
+archive/ (every past issue), subscribe/, option-a/ (the earlier home page: the
+edition's cover spread, then the archive, kept for comparison) and option-b/
+(a redirect to the home page, where option B now lives),
 and puts the ICS masthead and footer around the current edition in place.
 
     python3 _scripts/build.py
@@ -100,26 +102,26 @@ def head(title, desc, p, extra="", robots=""):
 """
 
 
-def nav_items(p, home):
-    """(key, label, href). `home` is the href of the home page from here."""
+def nav_items(p):
+    """(key, label, href). `p` is the path back to the site root from this page."""
     return [
-        ("home", "Home", home),
-        ("current", CURRENT["label"], p + CURRENT["dir"] + "/"),
-        ("archive", "Archive", home + "#archive"),
+        ("current", f'{CURRENT["label"]} issue', p or "./"),
+        ("archive", "Archive", p + "archive/"),
         ("subscribe", "Subscribe", p + "subscribe/"),
         ("donate", "Donate", DONATE),
     ]
 
 
-def masthead(p, active, home=None, items=None):
-    items = items or nav_items(p, home if home is not None else (p or "./"))
+def masthead(p, active):
+    items = nav_items(p)
     desk, mob = [], []
     for key, label, href in items:
         on = key == active
         cur = ' aria-current="page"' if on else ""
+        btn = " ics-nav__link--donate" if key == "donate" else ""
         desk.append(f'        <li class="ics-nav__item{" ics-nav__item--active" if on else ""}">\n'
-                    f'          <a class="ics-nav__link" href="{href}"{cur}>{label}</a>\n        </li>')
-        mob.append(f'  <a class="ics-mobile-menu__link{" ics-mobile-menu__link--current" if on else ""}" href="{href}"{cur}>{label}</a>')
+                    f'          <a class="ics-nav__link{btn}" href="{href}"{cur}>{label}</a>\n        </li>')
+        mob.append(f'  <a class="ics-mobile-menu__link{" ics-mobile-menu__link--current" if on else ""}{" ics-mobile-menu__link--donate" if btn else ""}" href="{href}"{cur}>{label}</a>')
     return f"""<header class="ics-header">
   <div class="ics-header__inner">
     <a class="ics-header__logo-link" href="https://www.icscanada.edu/">
@@ -238,6 +240,7 @@ def gap_row(v, tag):
 
 
 def ledger(issues, p, heading_tag="h2", head_id="archive-t"):
+    issues = [i for i in issues if not i["online"]]
     tree = ledger_tree(issues)
     have = {i["volume"] for i in issues}
     gaps = {v for v in range(min(have), max(have)) if v not in have}
@@ -271,7 +274,7 @@ def ledger(issues, p, heading_tag="h2", head_id="archive-t"):
     <div class="archive__head">
       <{heading_tag} id="{head_id}">Sixty years of <em>Perspective</em></{heading_tag}>
       <div>
-        <p><em>Perspective</em> has come out since {first["label"]}: six times a year in its early decades, twice a year now, in spring and in the autumn. Every issue is here, newest first; choose a cover to open it as a PDF.{still}</p>
+        <p><em>Perspective</em> has come out since {first["label"]}: six times a year in its early decades, twice a year now, in spring and in the autumn. Every past issue is here, newest first; choose a cover to open it as a PDF.{still}</p>
         <p class="meta">{total} issues, {first["label"]} to {last["label"]}, kept in the <a href="{IR}">ICS Institutional Repository</a>{" and here" if here else ""}.</p>
       </div>
     </div>
@@ -307,31 +310,43 @@ def print_band(p):
 
 # ── pages ───────────────────────────────────────────────────────────────
 
-def page_home(issues):
-    p = ""
+def page_option_a(issues):
+    """The earlier home page (the issue's cover spread, then the archive), kept for comparison."""
+    p = "../"
     desc = (f"Perspective, the magazine of the Institute for Christian Studies: read the {CURRENT['label']} issue "
             f"on {CURRENT['theme']}, browse every issue since 1967, or subscribe to the print edition.")
-    return (head(f"Perspective · The magazine of the Institute for Christian Studies", desc, p)
+    return (head("Option A · Perspective · The magazine of the Institute for Christian Studies", desc, p,
+                 robots='<meta name="robots" content="noindex">\n')
             + '<body>\n<a class="skip" href="#main">Skip to content</a>\n'
-            + masthead(p, "home", home="./")
+            + masthead(p, "")
             + '<main id="main">\n' + feature(p) + ledger(issues, p) + print_band(p) + "</main>\n"
             + footer(p) + "</body>\n</html>\n")
 
 
-def page_archive_redirect():
-    """The archive lives on the home page now; old /archive/ links land there."""
-    return """<!doctype html>
+def page_archive(issues):
+    p = "../"
+    desc = "Every past issue of Perspective, the magazine of the Institute for Christian Studies, since 1967, each one a PDF."
+    return (head("Archive · Perspective", desc, p)
+            + '<body>\n<a class="skip" href="#main">Skip to content</a>\n'
+            + masthead(p, "archive")
+            + '<main id="main">\n' + ledger(issues, p, "h1", "archive-t") + print_band(p) + "</main>\n"
+            + footer(p) + "</body>\n</html>\n")
+
+
+def redirect(to, title, text):
+    """A page that has moved; old links land on its new home."""
+    return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Archive · Perspective</title>
+<title>{title} · Perspective</title>
 <meta name="robots" content="noindex">
-<link rel="canonical" href="../#archive">
-<meta http-equiv="refresh" content="0; url=../#archive">
-<script>location.replace('../#archive');</script>
+<link rel="canonical" href="{to}">
+<meta http-equiv="refresh" content="0; url={to}">
+<script>location.replace('{to}');</script>
 </head>
 <body>
-<p>The archive is now on the <a href="../#archive">Perspective home page</a>.</p>
+<p>{text} <a href="{to}">Go there now</a>.</p>
 </body>
 </html>
 """
@@ -380,13 +395,13 @@ def put_between(s, name, content, anchor_re, after=True):
     return s[:at] + block + s[at:]
 
 
-def wrap_edition(src, p, active, home, items=None, teaser="", robots=""):
+def wrap_edition(src, p, active, teaser="", robots=""):
     s = src
     extra = f'<link rel="stylesheet" href="{p}assets/teaser.css">\n' if teaser else ""
     s = put_between(s, "head",
                     f'{robots}<link rel="stylesheet" href="{p}assets/chrome.css">\n{extra}<script src="{p}assets/js/site.js" defer></script>\n{EDITION_FIT}',
                     r"</head>", after=False)
-    s = put_between(s, "masthead", masthead(p, active, home=home, items=items), r'<a class="skip"[^>]*>[^<]*</a>\n')
+    s = put_between(s, "masthead", masthead(p, active), r'<a class="skip"[^>]*>[^<]*</a>\n')
     s = put_between(s, "footer", teaser + footer(p), r"</body>", after=False)
     return s
 
@@ -400,9 +415,9 @@ def from_archive(issues, p):
     <div class="from-archive__head">
       <div>
         <h2 id="from-archive-t">Earlier issues</h2>
-        <p>{total} issues of <em>Perspective</em> since 1967, each one a PDF in the ICS Institutional Repository. These are the most recent.</p>
+        <p>{total} issues of <em>Perspective</em> since 1967, each one a PDF. These are the most recent.</p>
       </div>
-      <a class="btn btn--line" href="{p}#archive">Browse every issue {ARROW}</a>
+      <a class="btn btn--line" href="{p}archive/">Browse every issue {ARROW}</a>
     </div>
     <ol>
 {tiles}
@@ -415,22 +430,20 @@ def from_archive(issues, p):
 def main():
     issues = load_issues()
     out = {
-        "index.html": page_home(issues),
-        "archive/index.html": page_archive_redirect(),
+        "archive/index.html": page_archive(issues),
         "subscribe/index.html": page_subscribe(issues),
+        "option-a/index.html": page_option_a(issues),
+        "option-b/index.html": redirect("../", "Moved", "Option B is now the Perspective home page."),
     }
     ed_path = ROOT / CURRENT["dir"] / "index.html"
     edition = ed_path.read_text()
-    out[f'{CURRENT["dir"]}/index.html'] = wrap_edition(edition, "../", "current", "../")
+    out[f'{CURRENT["dir"]}/index.html'] = wrap_edition(edition, "../", "current")
 
-    # Option B: the edition is the home page. Same edition, its paths pointed back at fall-2026/.
-    b_items = [("current", f'{CURRENT["label"]} issue', "./"), ("archive", "Archive", "../#archive"), ("subscribe", "Subscribe", "../subscribe/"), ("donate", "Donate", DONATE)]
+    # The home page is the current edition itself, its paths pointed into its folder,
+    # with the most recent past issues after it.
     pristine = re.sub(r"<!-- site:(\w+) -->.*?<!-- /site:\1 -->\n", "", edition, flags=re.S)
-    b = re.sub(r'((?:src|href)=")(img|fonts)/', rf'\1../{CURRENT["dir"]}/\2/', pristine)
-    b = b.replace("<title>Perspective · ", "<title>Option B · Perspective · ", 1)
-    out["option-b/index.html"] = wrap_edition(b, "../", "current", "./", items=b_items,
-                                              teaser=from_archive(issues, "../"),
-                                              robots='<meta name="robots" content="noindex">\n')
+    home = re.sub(r'((?:src|href)=")(img|fonts)/', rf'\1{CURRENT["dir"]}/\2/', pristine)
+    out["index.html"] = wrap_edition(home, "", "current", teaser=from_archive(issues, ""))
     for rel, text in out.items():
         f = ROOT / rel
         f.parent.mkdir(parents=True, exist_ok=True)
