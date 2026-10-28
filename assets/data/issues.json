@@ -3508,5 +3508,21 @@
   "cover": "assets/covers/2024-v58-n1.webp",
   "w": 440,
   "h": 666
+ },
+ {
+  "slug": "2025-v59-n1",
+  "volume": 59,
+  "number": 1,
+  "label": "Spring/Fall 2025",
+  "year": 2025,
+  "issued": "2025-06-01",
+  "title": "Perspective vol. 59 no. 1 (Spring/Fall 2025): Free to Be Faithful",
+  "handle": null,
+  "source": "https://files.constantcontact.com/0e42c4d3901/10180ebb-f4d2-4825-9bda-869255bf3727.pdf",
+  "pdf": "issues/2025-v59-n1.pdf",
+  "pdf_kb": 3309,
+  "cover": "assets/covers/2025-v59-n1.webp",
+  "w": 440,
+  "h": 665
  }
 ]

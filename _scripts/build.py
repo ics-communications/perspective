@@ -218,7 +218,9 @@ def issue_tile(i, p):
     else:
         mb = i["pdf_kb"] / 1024
         size = f"{mb:.1f} MB" if mb >= 1 else f'{i["pdf_kb"]} KB'
-        href, tail, note = i["pdf"], f" (PDF, {size})", i["label"]
+        # Most PDFs open from the Repository; one not yet there is hosted with the site
+        pdf = i["pdf"] if i["pdf"].startswith("http") else p + i["pdf"]
+        href, tail, note = pdf, f" (PDF, {size})", i["label"]
     cls = "issue issue--online" if i["online"] else "issue"
     return (f'<li><a class="{cls}" data-slug="{i["slug"]}" href="{href}">'
             f'<span class="issue__cover"><img src="{p}{i["cover"]}" alt="" width="{i["w"]}" height="{i["h"]}" loading="lazy" decoding="async"></span>'
@@ -240,6 +242,9 @@ def ledger(issues, p, heading_tag="h2", head_id="archive-t"):
     dt, vt = ("h2", "h3") if heading_tag == "h1" else ("h3", "h4")
     in_ir = [i for i in issues if not i["online"]]
     first, last = in_ir[0], in_ir[-1]
+    here = [i for i in in_ir if not i["pdf"].startswith("http")]
+    still = (f' Volume {here[0]["volume"]} ({here[0]["label"]}) is hosted on this site until it joins the Repository.'
+             if len(here) == 1 else "")
     rail = "\n".join(
         f'      <li><a href="#d{d}">{d}s <span>{sum(len(v) for v in vols.values())}</span></a></li>'
         for d, vols in tree.items())
@@ -264,8 +269,8 @@ def ledger(issues, p, heading_tag="h2", head_id="archive-t"):
     <div class="archive__head">
       <{heading_tag} id="{head_id}">Sixty years of <em>Perspective</em></{heading_tag}>
       <div>
-        <p><em>Perspective</em> has come out since {first["label"]}: six times a year in its early decades, twice a year now, in spring and in the autumn. Every issue in the Repository is here, newest first; choose a cover to open it as a PDF. Volume 59 is still to be added.</p>
-        <p class="meta">{total} issues, {first["label"]} to {last["label"]}, kept in the <a href="{IR}">ICS Institutional Repository</a>.</p>
+        <p><em>Perspective</em> has come out since {first["label"]}: six times a year in its early decades, twice a year now, in spring and in the autumn. Every issue is here, newest first; choose a cover to open it as a PDF.{still}</p>
+        <p class="meta">{total} issues, {first["label"]} to {last["label"]}, kept in the <a href="{IR}">ICS Institutional Repository</a>{" and here" if here else ""}.</p>
       </div>
     </div>
     <div class="archive__body">
@@ -273,7 +278,7 @@ def ledger(issues, p, heading_tag="h2", head_id="archive-t"):
         <ol>
 {rail}
         </ol>
-        <p class="ir">PDFs open from the <a href="{IR}">ICS Institutional Repository</a>, where each issue is also catalogued.</p>
+        <p class="ir">PDFs open from the <a href="{IR}">ICS Institutional Repository</a>, where each issue is also catalogued{", apart from Volume " + str(here[0]["volume"]) + ", hosted here for now" if len(here) == 1 else ""}.</p>
       </nav>
       <div class="ledger">
 {chr(10).join(body)}

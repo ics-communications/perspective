@@ -7,6 +7,8 @@ info/
 
 # Downloaded issue PDFs never live in the repo (covers are rendered from them elsewhere)
 *.pdf
+# ...except an issue hosted here until it reaches the ICS Institutional Repository
+!issues/*.pdf
 
 # Tooling
 __pycache__/
