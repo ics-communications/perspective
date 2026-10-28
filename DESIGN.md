@@ -150,7 +150,7 @@ The site is the magazine's own contents page scaled to its whole run. Every page
 
 The world comes from the hand-built Fall 2026 edition (`fall-2026/index.html`), whose inline stylesheet sets the same tokens the site pages use: Perspective red, cream, ink, warm grey, Newsreader to read, Avenir Next Condensed caps to label, Avenir Next for figures and buttons, the `cubic-bezier(.16, 1, .3, 1)` ease. The site pages (`assets/site.css`) are that world without the edition's essay furniture: square, flat, hairline-ruled, generous at a 17px root for an older readership. The edition's own signatures, the scalloped red mastblock, the scalloped red pull quote, the orange box, the dotted dividers and the .6rem-rounded cards, belong to the edition; on the site pages the mastblock appears only inside the cover raster (`assets/img/fall-2026-cover.webp`, a screenshot of the edition's cover).
 
-Two pieces of chrome are borrowed and keep their own tokens: the ICS masthead (black bar, Helvetica Neue uppercase links, ICS red `#D31145` underline) copied from the philosophy site, and the ICS wine footer copied from ics-site, its tokens scoped to `.site-footer`. They frame Perspective; they are not Perspective tokens and must not be pulled into Perspective components. The ICS nav red (`#D31145`) and Perspective red (`#D2232A`) sit a few pixels apart on every page and are not reconciled.
+Two pieces of chrome are borrowed and keep their own tokens: the ICS masthead (black bar, Helvetica Neue uppercase links, ICS red `#D31145` underline) copied from the philosophy site, and the ICS footer copied from ics-site, recoloured to the masthead's black, white and `#D31145` red, its tokens scoped to `.site-footer`. They frame Perspective; they are not Perspective tokens and must not be pulled into Perspective components. The ICS nav red (`#D31145`) and Perspective red (`#D2232A`) sit a few pixels apart on every page and are not reconciled.
 
 **Key Characteristics:**
 - White paper, ink text, one red: the red draws the rules, fills the primary button and marks the current or last-opened thing.
@@ -181,7 +181,7 @@ Edition-only: the edition also carries an orange (`#E1905D`) for its boxed stand
 ### Named Rules
 **The One Red Rule.** Perspective red is the only chromatic colour in Perspective's own components; the covers and the borrowed chrome are outside the rule. It rules, it fills the one primary action, and it marks state (current, last opened, invalid). Everything else is ink, grey, cream or paper.
 
-**The Borrowed Chrome Rule.** The masthead's `#000`/`#D31145` and the footer's wine `#7A0A1C` palette stay inside `.ics-header`, `.ics-mobile-menu` and `.site-footer`. Perspective components never reference them, and the chrome never takes Perspective tokens.
+**The Borrowed Chrome Rule.** The masthead's and footer's shared `#000`/`#FFF`/`#D31145` palette stays inside `.ics-header`, `.ics-mobile-menu` and `.site-footer`. Perspective components never reference them, and the chrome never takes Perspective tokens.
 
 ## Typography
 
@@ -288,7 +288,7 @@ One short form posting to the existing Google Form.
 On Option B (`option-b/`, noindex) the edition itself is the home page, and a scoped band (`assets/teaser.css`, everything under `.from-archive`) closes it: a 1px red top rule, the headline "Earlier issues" with a count line, a line button "Browse every issue", and the eight most recent repository issues as issue tiles. It reproduces the site's issue tile and line button inside the edition, which keeps its own stylesheet.
 
 ### Navigation (borrowed)
-The ICS masthead, unchanged from the philosophy site: a black bar 100px tall (69px under 1200px) with the white-and-red ICS logo, then Helvetica Neue 600 0.8rem uppercase links at 0.14em tracking; hover and the current page take a 1.5px ICS-red underline at a 6px offset. An "ICS" dropdown lists Institute links, right-aligned under a 2px red top border. Under 1200px a three-bar asymmetric burger opens a full-screen black overlay. Items: Home, the current edition's label, Archive, Subscribe. The ICS footer (wine `#7A0A1C`, Libre Baskerville and Outfit) is injected by `assets/js/footer.js` and is equally borrowed.
+The ICS masthead, unchanged from the philosophy site: a black bar 100px tall (69px under 1200px) with the white-and-red ICS logo, then Helvetica Neue 600 0.8rem uppercase links at 0.14em tracking; hover and the current page take a 1.5px ICS-red underline at a 6px offset. An "ICS" dropdown lists Institute links, right-aligned under a 2px red top border. Under 1200px a three-bar asymmetric burger opens a full-screen black overlay. Items: Home, the current edition's label, Archive, Subscribe. The ICS footer (Libre Baskerville and Outfit, recoloured to the masthead: black ground, white text, a 2px ICS-red top rule and red hover underlines) is injected by `assets/js/footer.js` and is otherwise borrowed as is.
 
 ### Adding a new edition
 The edition on the front door is the `CURRENT` record in `_scripts/build.py`. To ship the next one:
@@ -309,12 +309,12 @@ The edition on the front door is the `CURRENT` record in `_scripts/build.py`. To
 - **Do** set labels in Avenir Next Condensed caps, figures and controls in Avenir Next with lining numerals, and reading text in Newsreader at a 34em measure.
 - **Do** keep interactive targets at least 44px tall (buttons and fields 2.9rem) and use the 2px red focus outline at a 3px offset.
 - **Do** mark a missing volume with the cream gap row rather than hiding it or filling it.
-- **Do** keep the ICS masthead and footer exactly as borrowed, with their own tokens in their own scopes.
+- **Do** keep the ICS masthead as borrowed and the footer in the masthead's colours, with their own tokens in their own scopes.
 
 ### Don't:
 - **Don't** add shadows for elevation; `box-shadow` is used only as a 1px state ring on inputs and choices.
 - **Don't** use stock or generated imagery; covers and contributor portraits are the only pictures.
-- **Don't** use the ICS nav red `#D31145` or the footer wine palette in Perspective components.
+- **Don't** use the ICS nav red `#D31145` or the chrome's black palette in Perspective components.
 - **Don't** add a second accent colour to site pages; the edition's orange stays in the edition.
 - **Don't** set standalone figures (issue lines, counts, dates under covers) or controls in Newsreader.
 - **Don't** invent issues, covers or volumes to close a gap in the run.

@@ -43,7 +43,7 @@ Sixty years of one Institute's magazine, unbroken: 234 digitised issues (1967 to
 ## Brand Commitments
 
 - *Perspective* masthead, Perspective red (#D2232A), Newsreader and Avenir Next, as set by the Fall 2026 edition and its print design by Kevin van der Leek Design Inc.
-- ICS identity: wine footer, ICS logo.
+- ICS identity: ICS footer in the masthead's black and red, ICS logo.
 
 ## Evidence on Hand
 

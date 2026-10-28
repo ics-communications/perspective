@@ -232,11 +232,12 @@
         "source": "ics-site css/styles.css and js/footer.js",
         "scope": ".site-footer",
         "tokens": {
-          "--wine-deep": "#7A0A1C",
-          "--accent-light": "#C87A52",
-          "--accent-on-wine": "#E9B48F",
-          "--cream": "#FDFBF7",
-          "--text-on-dark": "#E8C2C2",
+          "--wine-deep": "#000000",
+          "--accent-light": "rgba(255,255,255,0.72)",
+          "--accent-on-wine": "#FFFFFF",
+          "--cream": "#FFFFFF",
+          "--text-on-dark": "rgba(255,255,255,0.72)",
+          "--brand-red": "#D31145",
           "--serif": "'Libre Baskerville', Georgia, serif",
           "body": "Outfit"
         }
@@ -329,7 +330,7 @@
   ],
   "narrative": {
     "northStar": "The Contents Page, Sixty Years Long",
-    "overview": "The site is the magazine's own contents page scaled to its whole run. Every page is set on white paper in ink, ruled with 1px hairlines and red rules, and reads in the order a reader of the printed magazine would expect: the newest issue's cover and its \"In this issue\" list first, then every volume as one ruled row, numbered in large light condensed numerals, carrying its real covers. Nothing is decorated that is not already in the print edition; the covers, sixty years of mastheads, are the content and the ornament.\n\nThe world comes from the hand-built Fall 2026 edition (`fall-2026/index.html`), whose inline stylesheet sets the same tokens the site pages use: Perspective red, cream, ink, warm grey, Newsreader to read, Avenir Next Condensed caps to label, Avenir Next for figures and buttons, the `cubic-bezier(.16, 1, .3, 1)` ease. The site pages (`assets/site.css`) are that world without the edition's essay furniture: square, flat, hairline-ruled, generous at a 17px root for an older readership. The edition's own signatures, the scalloped red mastblock, the scalloped red pull quote, the orange box, the dotted dividers and the .6rem-rounded cards, belong to the edition; on the site pages the mastblock appears only inside the cover raster (`assets/img/fall-2026-cover.webp`, a screenshot of the edition's cover).\n\nTwo pieces of chrome are borrowed and keep their own tokens: the ICS masthead (black bar, Helvetica Neue uppercase links, ICS red `#D31145` underline) copied from the philosophy site, and the ICS wine footer copied from ics-site, its tokens scoped to `.site-footer`. They frame Perspective; they are not Perspective tokens and must not be pulled into Perspective components. The ICS nav red (`#D31145`) and Perspective red (`#D2232A`) sit a few pixels apart on every page and are not reconciled.",
+    "overview": "The site is the magazine's own contents page scaled to its whole run. Every page is set on white paper in ink, ruled with 1px hairlines and red rules, and reads in the order a reader of the printed magazine would expect: the newest issue's cover and its \"In this issue\" list first, then every volume as one ruled row, numbered in large light condensed numerals, carrying its real covers. Nothing is decorated that is not already in the print edition; the covers, sixty years of mastheads, are the content and the ornament.\n\nThe world comes from the hand-built Fall 2026 edition (`fall-2026/index.html`), whose inline stylesheet sets the same tokens the site pages use: Perspective red, cream, ink, warm grey, Newsreader to read, Avenir Next Condensed caps to label, Avenir Next for figures and buttons, the `cubic-bezier(.16, 1, .3, 1)` ease. The site pages (`assets/site.css`) are that world without the edition's essay furniture: square, flat, hairline-ruled, generous at a 17px root for an older readership. The edition's own signatures, the scalloped red mastblock, the scalloped red pull quote, the orange box, the dotted dividers and the .6rem-rounded cards, belong to the edition; on the site pages the mastblock appears only inside the cover raster (`assets/img/fall-2026-cover.webp`, a screenshot of the edition's cover).\n\nTwo pieces of chrome are borrowed and keep their own tokens: the ICS masthead (black bar, Helvetica Neue uppercase links, ICS red `#D31145` underline) copied from the philosophy site, and the ICS footer copied from ics-site, recoloured to the masthead's black, white and `#D31145` red, its tokens scoped to `.site-footer`. They frame Perspective; they are not Perspective tokens and must not be pulled into Perspective components. The ICS nav red (`#D31145`) and Perspective red (`#D2232A`) sit a few pixels apart on every page and are not reconciled.",
     "keyCharacteristics": [
       "White paper, ink text, one red: the red draws the rules, fills the primary button and marks the current or last-opened thing.",
       "Ruled, not boxed: rows are separated by 1px ink-18% hairlines under a 1px ink or 3px red head rule.",
@@ -346,7 +347,7 @@
       },
       {
         "name": "The Borrowed Chrome Rule",
-        "body": "The masthead's `#000`/`#D31145` and the footer's wine `#7A0A1C` palette stay inside `.ics-header`, `.ics-mobile-menu` and `.site-footer`. Perspective components never reference them, and the chrome never takes Perspective tokens.",
+        "body": "The masthead's and footer's shared `#000`/`#FFF`/`#D31145` palette stays inside `.ics-header`, `.ics-mobile-menu` and `.site-footer`. Perspective components never reference them, and the chrome never takes Perspective tokens.",
         "section": "colors"
       },
       {
@@ -378,12 +379,12 @@
       "**Do** set labels in Avenir Next Condensed caps, figures and controls in Avenir Next with lining numerals, and reading text in Newsreader at a 34em measure.",
       "**Do** keep interactive targets at least 44px tall (buttons and fields 2.9rem) and use the 2px red focus outline at a 3px offset.",
       "**Do** mark a missing volume with the cream gap row rather than hiding it or filling it.",
-      "**Do** keep the ICS masthead and footer exactly as borrowed, with their own tokens in their own scopes."
+      "**Do** keep the ICS masthead as borrowed and the footer in the masthead's colours, with their own tokens in their own scopes."
     ],
     "donts": [
       "**Don't** add shadows for elevation; `box-shadow` is used only as a 1px state ring on inputs and choices.",
       "**Don't** use stock or generated imagery; covers and contributor portraits are the only pictures.",
-      "**Don't** use the ICS nav red `#D31145` or the footer wine palette in Perspective components.",
+      "**Don't** use the ICS nav red `#D31145` or the chrome's black palette in Perspective components.",
       "**Don't** add a second accent colour to site pages; the edition's orange stays in the edition.",
       "**Don't** set standalone figures (issue lines, counts, dates under covers) or controls in Newsreader.",
       "**Don't** invent issues, covers or volumes to close a gap in the run."
