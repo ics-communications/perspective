@@ -47,6 +47,7 @@ CURRENT = {
 }
 
 IR = "https://ir.icscanada.edu/handle/10756/271894"
+DONATE = "https://donate.icscanada.edu/"
 GFORM = "https://docs.google.com/forms/d/e/1FAIpQLSfa_T1csOUSmCK0TBnZYBNx5CJUCDxDHd0ev9GXx_qG5LKweA"
 
 ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
@@ -106,6 +107,7 @@ def nav_items(p, home):
         ("current", CURRENT["label"], p + CURRENT["dir"] + "/"),
         ("archive", "Archive", home + "#archive"),
         ("subscribe", "Subscribe", p + "subscribe/"),
+        ("donate", "Donate", DONATE),
     ]
 
 
@@ -422,7 +424,7 @@ def main():
     out[f'{CURRENT["dir"]}/index.html'] = wrap_edition(edition, "../", "current", "../")
 
     # Option B: the edition is the home page. Same edition, its paths pointed back at fall-2026/.
-    b_items = [("current", f'{CURRENT["label"]} issue', "./"), ("archive", "Archive", "../#archive"), ("subscribe", "Subscribe", "../subscribe/")]
+    b_items = [("current", f'{CURRENT["label"]} issue', "./"), ("archive", "Archive", "../#archive"), ("subscribe", "Subscribe", "../subscribe/"), ("donate", "Donate", DONATE)]
     pristine = re.sub(r"<!-- site:(\w+) -->.*?<!-- /site:\1 -->\n", "", edition, flags=re.S)
     b = re.sub(r'((?:src|href)=")(img|fonts)/', rf'\1../{CURRENT["dir"]}/\2/', pristine)
     b = b.replace("<title>Perspective · ", "<title>Option B · Perspective · ", 1)
