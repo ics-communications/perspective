@@ -1,6 +1,6 @@
 ---
 name: Perspective
-description: The ICS newsletter since 1967, its newest edition at the front and every volume ruled behind it like a contents page.
+description: The ICS magazine since 1967, its newest edition at the front and every volume ruled behind it like a contents page.
 colors:
   red: "#D2232A"
   red-deep: "#A8161C"
@@ -146,7 +146,7 @@ components:
 
 **Creative North Star: "The Contents Page, Sixty Years Long"**
 
-The site is the magazine's own contents page scaled to its whole run. Every page is set on white paper in ink, ruled with 1px hairlines and red rules, and reads in the order a reader of the printed newsletter would expect: the newest issue's cover and its "In this issue" list first, then every volume as one ruled row, numbered in large light condensed numerals, carrying its real covers. Nothing is decorated that is not already in the print edition; the covers, sixty years of mastheads, are the content and the ornament.
+The site is the magazine's own contents page scaled to its whole run. Every page is set on white paper in ink, ruled with 1px hairlines and red rules, and reads in the order a reader of the printed magazine would expect: the newest issue's cover and its "In this issue" list first, then every volume as one ruled row, numbered in large light condensed numerals, carrying its real covers. Nothing is decorated that is not already in the print edition; the covers, sixty years of mastheads, are the content and the ornament.
 
 The world comes from the hand-built Fall 2026 edition (`fall-2026/index.html`), whose inline stylesheet sets the same tokens the site pages use: Perspective red, cream, ink, warm grey, Newsreader to read, Avenir Next Condensed caps to label, Avenir Next for figures and buttons, the `cubic-bezier(.16, 1, .3, 1)` ease. The site pages (`assets/site.css`) are that world without the edition's essay furniture: square, flat, hairline-ruled, generous at a 17px root for an older readership. The edition's own signatures, the scalloped red mastblock, the scalloped red pull quote, the orange box, the dotted dividers and the .6rem-rounded cards, belong to the edition; on the site pages the mastblock appears only inside the cover raster (`assets/img/fall-2026-cover.webp`, a screenshot of the edition's cover).
 
@@ -190,7 +190,7 @@ Edition-only: the edition also carries an orange (`#E1905D`) for its boxed stand
 **Label Font:** Avenir Next Condensed (with Arial Narrow), Light 300, Regular 400 and Demi 600, set in uppercase caps.
 **Figure / UI Font:** Avenir Next (with system-ui), 400, 500 and 700, ICS's licensed copy, self-hosted.
 
-**Character:** A bookish text serif for everything a reader reads, condensed grotesque caps for everything a reader scans, and plain Avenir Next for numbers, dates and controls, exactly the division of labour in the printed newsletter.
+**Character:** A bookish text serif for everything a reader reads, condensed grotesque caps for everything a reader scans, and plain Avenir Next for numbers, dates and controls, exactly the division of labour in the printed magazine.
 
 The root is 106.25%, so 1rem is 17px and body text sits at 1.06rem (about 18px).
 
@@ -253,7 +253,7 @@ Square, confident, Avenir Next bold caps, as the edition's Contents button.
 - **Disabled:** 0.55 opacity with a progress cursor; the subscribe button also reads "Sending…".
 
 ### Feature (the new issue)
-The home page's front door. The edition's cover screenshot (with its scalloped red mastblock and stacked PER/SPEC/TIVE) is on the left, a decorative link to the edition. On the right: the display headline, the issue line in red Avenir Next 500 ("Volume 60, Number 1 · The newsletter of the Institute for Christian Studies"), the lede as a blockquote with a grey Avenir Next citation, the primary and line buttons, and the "In this issue" list. Each contents row is a link into the edition's anchor: a 2.25rem round portrait (or red dot), the title in condensed caps, the author in grey italic Newsreader, a hairline below, and the title turning red on hover. The cover image scales by 1.5% on hover over 1.2s. A 1px red rule closes the section.
+The home page's front door. The edition's cover screenshot (with its scalloped red mastblock and stacked PER/SPEC/TIVE) is on the left, a decorative link to the edition. On the right: the display headline, the issue line in red Avenir Next 500 ("Volume 60, Number 1 · The magazine of the Institute for Christian Studies"), the lede as a blockquote with a grey Avenir Next citation, the primary and line buttons, and the "In this issue" list. Each contents row is a link into the edition's anchor: a 2.25rem round portrait (or red dot), the title in condensed caps, the author in grey italic Newsreader, a hairline below, and the title turning red on hover. The cover image scales by 1.5% on hover over 1.2s. A 1px red rule closes the section.
 
 ### Volume ledger
 The archive, rendered on the home page and on `archive/`. A head (display headline plus a note on the run and its count, linked to the ICS Institutional Repository), then decades newest first, each opened by a condensed caps decade title over a 3px red rule with its issue count on the right. Within a decade, one ledger row per volume (see the Layout rule): numeral column, then an ordered grid of issue tiles, a hairline under each row.

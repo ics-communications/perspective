@@ -187,7 +187,7 @@ def feature(p):
   </a>
   <div class="feature__text">
     <h1 id="feature-t"><em>Perspective</em>, {c["label"]}: essays on {c["theme"]}</h1>
-    <p class="feature__issue">Volume {c["volume"]}, Number {c["number"]} · The newsletter of the Institute for Christian Studies</p>
+    <p class="feature__issue">Volume {c["volume"]}, Number {c["number"]} · The magazine of the Institute for Christian Studies</p>
     <blockquote class="feature__lede">
       <p>{c["lede"]}</p>
       <cite>{c["lede_by"]}</cite>
@@ -295,9 +295,9 @@ def print_band(p):
 
 def page_home(issues):
     p = ""
-    desc = (f"Perspective, the newsletter of the Institute for Christian Studies: read the {CURRENT['label']} issue "
+    desc = (f"Perspective, the magazine of the Institute for Christian Studies: read the {CURRENT['label']} issue "
             f"on {CURRENT['theme']}, browse every issue since 1967, or subscribe to the print edition.")
-    return (head(f"Perspective · The newsletter of the Institute for Christian Studies", desc, p)
+    return (head(f"Perspective · The magazine of the Institute for Christian Studies", desc, p)
             + '<body>\n<a class="skip" href="#main">Skip to content</a>\n'
             + masthead(p, "home", home="./")
             + '<main id="main">\n' + feature(p) + ledger(issues, p) + print_band(p) + "</main>\n"
@@ -306,7 +306,7 @@ def page_home(issues):
 
 def page_archive(issues):
     p = "../"
-    desc = "Every issue of Perspective, the newsletter of the Institute for Christian Studies, from 1967 to today, with links to each PDF."
+    desc = "Every issue of Perspective, the magazine of the Institute for Christian Studies, from 1967 to today, with links to each PDF."
     return (head("Archive · Perspective", desc, p)
             + '<body>\n<a class="skip" href="#main">Skip to content</a>\n'
             + masthead(p, "archive")
@@ -321,7 +321,7 @@ def page_subscribe(issues):
     figs = "\n".join(
         f'      <figure><img src="{p}{i["cover"]}" alt="Cover of Perspective, {E(i["label"])}" width="{i["w"]}" height="{i["h"]}"><figcaption>{E(i["label"])}</figcaption></figure>'
         for i in recent)
-    desc = "Ask for the print edition of Perspective, the newsletter of the Institute for Christian Studies, mailed twice a year."
+    desc = "Ask for the print edition of Perspective, the magazine of the Institute for Christian Studies, mailed twice a year."
     tpl = (ROOT / "_scripts/subscribe.html").read_text()
     main = tpl.replace("{{covers}}", figs).replace("{{gform}}", GFORM).replace("{{current_dir}}", CURRENT["dir"]).replace("{{current_label}}", CURRENT["label"]).replace("{{p}}", p)
     return (head("Subscribe to the print edition · Perspective", desc, p)

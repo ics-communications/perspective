@@ -14,17 +14,17 @@ Static HTML/CSS with a small Python build script (`_scripts/build.py`) that rend
 
 ## Users
 
-- Readers of *Perspective*: ICS members, donors, alumni, supporters and church communities who receive the print newsletter and want to read the latest issue online. *(inferred)*
+- Readers of *Perspective*: ICS members, donors, alumni, supporters and church communities who receive the print magazine and want to read the latest issue online. *(inferred)*
 - People looking back: alumni, researchers and ICS staff searching the 1967-to-present run for a particular issue, article or moment in the Institute's history. *(inferred)*
 - New readers who want a printed copy mailed to them twice a year.
 
 ## Product Purpose
 
-*Perspective* is the magazine/newsletter of the Institute for Christian Studies (Toronto), first issued in 1967 and published twice a year (spring and autumn) in print and online. This site at perspective.icscanada.edu showcases the current edition (Fall 2026, Volume 60, Number 1), gives access to every previous edition, and takes print subscriptions.
+*Perspective* is the magazine of the Institute for Christian Studies (Toronto), first issued in 1967 and published twice a year (spring and autumn) in print and online. This site at perspective.icscanada.edu showcases the current edition (Fall 2026, Volume 60, Number 1), gives access to every previous edition, and takes print subscriptions.
 
 ## Positioning
 
-Sixty years of one Institute's newsletter, unbroken: 234 digitised issues (1967 to Spring 2024) live in the ICS Institutional Repository, and this site is the reading room in front of that run.
+Sixty years of one Institute's magazine, unbroken: 234 digitised issues (1967 to Spring 2024) live in the ICS Institutional Repository, and this site is the reading room in front of that run.
 
 ## Operating Context
 
