@@ -206,7 +206,7 @@ def feature(p):
     rows = []
     for anchor, title, by, img, pg in c["contents"]:
         if img == "dot":
-            face = '<span class="dot" aria-hidden="true"></span>'
+            face = '<span class="dot bird" aria-hidden="true"></span>'
         elif img:
             face = f'<img src="{p}{c["dir"]}/img/{img}" alt="" width="271" height="271" loading="lazy">'
         else:
