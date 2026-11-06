@@ -52,6 +52,38 @@
   );
 })();
 
+/* ── Light/dark switch. The page follows the system until the reader picks;
+      a pick that matches the system clears the override, so the page goes
+      back to following it. The stored choice is applied in <head>. ── */
+(function () {
+  'use strict';
+  var KEY = 'perspective:theme';
+  var btn = document.querySelector('.ics-theme');
+  if (!btn) return;
+  var root = document.documentElement;
+  var sys = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : { matches: false };
+
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    return t ? t === 'dark' : sys.matches;
+  }
+  function sync() { btn.setAttribute('aria-pressed', isDark() ? 'true' : 'false'); }
+
+  btn.addEventListener('click', function () {
+    var dark = !isDark();
+    if (dark === sys.matches) {
+      root.removeAttribute('data-theme');
+      try { localStorage.removeItem(KEY); } catch (e) {}
+    } else {
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch (e) {}
+    }
+    sync();
+  });
+  if (sys.addEventListener) sys.addEventListener('change', sync);
+  sync();
+})();
+
 /* ── Archive: the issue you last opened keeps a red flag on its cover,
       so a reader working through the run can pick up where they left off.
       Stored only in this browser; the page is whole without it. ── */

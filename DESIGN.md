@@ -178,6 +178,14 @@ One saturated red on white paper and ink, with a warm cream for quiet fields and
 
 Edition-only: the edition also carries an orange (`#E1905D`) for its boxed standfirst and pull quote. No site page uses it.
 
+### Dark
+The same world at night, following the reader's system setting until they choose with the switch in the masthead (stored per browser as `perspective:theme`; a choice that matches the system clears itself, so the page follows the system again). A head script applies a stored choice before first paint. The tokens turn; the components do not change.
+- **Paper** `#1A1714`, a warm near-black, one step off the masthead's `#000`. **Ink** `#ECE4D6` (14.1:1). **Grey** `#A39A8D` (6.4:1 on paper, 5.8:1 on cream). **Cream** `#262019` for the quiet fields and the colophon.
+- **Red keeps its fill.** Rules, buttons, the mastblock and the red pull quotes stay `#D2232A`, and white on red stays 5.23:1. Small red type (standfirsts, the epigraph, the volume year, hover states, the colophon labels, required marks, the error notice) uses **`--red-text`**, which is the red itself in light and `#F0585D` in dark (5.3:1 on paper, 4.8:1 on cream).
+- **Fixed tokens never turn:** `--white` for type on red and on photographs, `--on-orange` (`#111111`) for ink on the orange cards, `--plate` (`#FFF4DB`) for the plates' paper.
+- **Printed objects stay printed.** The orange cards, the cream plates (their multiply blend needs the light ground) and the Art in Orvieto ad keep their light paper on the dark page, like inserts.
+- The standalone edition follows the system setting only; it has no masthead and so no switch.
+
 ### Named Rules
 **The One Red Rule.** Perspective red is the only chromatic colour in Perspective's own components; the covers and the borrowed chrome are outside the rule. It rules, it fills the one primary action, and it marks state (current, last opened, invalid). Everything else is ink, grey, cream or paper.
 
@@ -292,7 +300,7 @@ One short form posting to the existing Google Form.
 On Option B (`option-b/`, noindex) the edition itself is the home page, and a scoped band (`assets/teaser.css`, everything under `.from-archive`) closes it: a 1px red top rule, the headline "Earlier issues" with a count line, a line button "Browse every issue", and the eight most recent repository issues as issue tiles. It reproduces the site's issue tile and line button inside the edition, which keeps its own stylesheet.
 
 ### Navigation (borrowed)
-The ICS masthead, unchanged from the philosophy site: a black bar 100px tall (69px under 1200px) with the white-and-red ICS logo, then Helvetica Neue 600 0.8rem uppercase links at 0.14em tracking; hover and the current page take a 1.5px ICS-red underline at a 6px offset. Under 1200px a three-bar asymmetric burger opens a full-screen black overlay. Items: the current edition ("Fall 2026 issue", which is the home page), Archive (`archive/`), Subscribe, and Donate (https://donate.icscanada.edu/) set as a small square ICS-red button, 10px 16px, darkening to #A80D37 on hover, the one call to action in the bar; in the burger overlay it closes the list as a red button. There is no ICS menu; the ICS logo and the footer carry the Institute's links. The ICS footer (Libre Baskerville and Outfit, recoloured to the masthead: black ground, white text, a 2px ICS-red top rule and red hover underlines) is injected by `assets/js/footer.js` and is otherwise borrowed as is.
+The ICS masthead, unchanged from the philosophy site: a black bar 100px tall (69px under 1200px) with the white-and-red ICS logo, then Helvetica Neue 600 0.8rem uppercase links at 0.14em tracking; hover and the current page take a 1.5px ICS-red underline at a 6px offset. Under 1200px a three-bar asymmetric burger opens a full-screen black overlay. Items: the current edition ("Fall 2026 issue", which is the home page), Archive (`archive/`), Subscribe, and Donate (https://donate.icscanada.edu/) set as a small square ICS-red button, 10px 16px, darkening to #A80D37 on hover, the one call to action in the bar; in the burger overlay it closes the list as a red button. After the links (beside the burger under 1200px) sits Perspective's one addition, the light/dark switch: a 44px button with a drawn half-filled disc in the bar's white, red on hover, that turns over when dark is on; it carries `aria-pressed` and appears only when JavaScript runs. There is no ICS menu; the ICS logo and the footer carry the Institute's links. The ICS footer (Libre Baskerville and Outfit, recoloured to the masthead: black ground, white text, a 2px ICS-red top rule and red hover underlines) is injected by `assets/js/footer.js` and is otherwise borrowed as is.
 
 ### Adding a new edition
 The edition on the front door is the `CURRENT` record in `_scripts/build.py`. To ship the next one:
@@ -306,6 +314,7 @@ The edition on the front door is the `CURRENT` record in `_scripts/build.py`. To
 ## Do's and Don'ts
 
 ### Do:
+- **Do** route text on red or on a photograph through `--white`, and small red type through `--red-text`, so both themes hold contrast.
 - **Do** take every colour from the six Perspective tokens: red `#D2232A`, deep red `#A8161C` (error text only), cream `#FFF4DB`, ink `#111111`, paper `#FFFFFF`, grey `#5A5650`, with hairlines at ink 18%.
 - **Do** separate rows with a 1px hairline and open lists with a 1px ink rule; open a major block (decade, form, confirmation) with a 3px red rule.
 - **Do** keep every site component square; reserve the circle for contributor portraits.

@@ -14,6 +14,10 @@
     --ink: #111111;
     --paper: #FFFFFF;
     --grey: #5A5650;
+    --red-text: var(--red);   /* small red type; lifts in dark to hold 4.5:1 */
+    --white: #FFFFFF;         /* type on red and on photographs, in either theme */
+    --on-orange: #111111;     /* ink on the orange cards, which stay printed */
+    --plate: #FFF4DB;         /* the plates' paper, kept so multiply still reads as cream */
     --hair: color-mix(in srgb, var(--ink) 18%, transparent);
     --text: "Newsreader", Georgia, serif;
     --display: "Newsreader", Georgia, serif;
@@ -34,9 +38,9 @@
   html { font-size: 106.25%; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--text); font-size: 1.06rem; line-height: 1.62; font-kerning: normal; text-rendering: optimizeLegibility; }
   img { display: block; max-width: 100%; height: auto; }
-  ::selection { background: var(--red); color: var(--paper); }
+  ::selection { background: var(--red); color: var(--white); }
   a { color: inherit; text-decoration-color: var(--red); text-decoration-thickness: 1px; text-underline-offset: .18em; transition: color .3s var(--ease); }
-  a:hover { color: var(--red); }
+  a:hover { color: var(--red-text); }
   :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
   html { scrollbar-color: color-mix(in srgb, var(--ink) 35%, transparent) transparent; }
   .skip { position: absolute; left: -999px; top: 0; }
@@ -51,14 +55,14 @@
     .at-top .rail { opacity: 0; visibility: hidden; }
     .tocbtn { display: none; }
   }
-  .rail .mast { font-family: var(--sans); font-weight: 500; font-size: .88rem; line-height: 1.35; background: var(--red); color: var(--paper); padding: .7rem .8rem; margin-bottom: 1.8rem; }
+  .rail .mast { font-family: var(--sans); font-weight: 500; font-size: .88rem; line-height: 1.35; background: var(--red); color: var(--white); padding: .7rem .8rem; margin-bottom: 1.8rem; }
   .rail .mast b { display: block; font-size: 1.45rem; font-weight: 700; line-height: 1.1; letter-spacing: -.02em; margin-bottom: .2rem; }
   .rail h2 { font-family: var(--cond); font-weight: 600; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .01em; margin: 0 0 .6rem; }
   .rail ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
   .rail li a { display: block; padding: .5rem 0; border-bottom: 1px solid var(--hair); text-decoration: none; font-family: var(--sans); font-size: .88rem; line-height: 1.3; color: var(--grey); }
-  .rail li a:hover { color: var(--red); }
+  .rail li a:hover { color: var(--red-text); }
   .rail li a[aria-current="true"] { color: var(--ink); font-weight: 700; }
-  .tocbtn { position: fixed; right: 1rem; bottom: 1rem; z-index: 6; font-family: var(--sans); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; background: var(--red); color: var(--paper); padding: .55rem .9rem; transition: opacity .4s var(--ease), transform .4s var(--ease), visibility .4s; }
+  .tocbtn { position: fixed; right: 1rem; bottom: 1rem; z-index: 6; font-family: var(--sans); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; background: var(--red); color: var(--white); padding: .55rem .9rem; transition: opacity .4s var(--ease), transform .4s var(--ease), visibility .4s; }
   .tocbtn:hover { color: var(--paper); background: var(--ink); }
   .at-top ~ .tocbtn { opacity: 0; visibility: hidden; }
   /* Steps aside while reading down, returns on the way back up, and always on keyboard focus */
@@ -67,21 +71,21 @@
 
   /* Cover: the print cover on the left, the contents on the right */
   .cover { display: grid; min-height: 100svh; }
-  .cover .face { position: relative; overflow: hidden; color: var(--paper); min-height: 92svh; background: #8d8a83; }
+  .cover .face { position: relative; overflow: hidden; color: var(--white); min-height: 92svh; background: #8d8a83; }
   .cover .face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 55%; }
   .cover .mastblock { position: absolute; top: 0; left: 0; background: var(--red); padding: 1.1rem 1.4rem 1.2rem var(--gutter); font-family: var(--sans); font-weight: 700; font-size: .92rem; line-height: 1.25; max-width: 19rem; z-index: 1; }
   /* Scalloped right edge, as on the printed cover */
   .cover .mastblock { --r: .45rem; --bite: radial-gradient(circle at 100% 50%, #0000 var(--r), #000 calc(var(--r) + .5px)) left / 100% 1.2rem no-repeat round; padding-right: calc(1.4rem + var(--r)); -webkit-mask: var(--bite); mask: var(--bite); }
-  .cover .mastblock p { margin: 0; padding: .55rem 0; border-bottom: 1px dotted color-mix(in srgb, var(--paper) 75%, transparent); }
+  .cover .mastblock p { margin: 0; padding: .55rem 0; border-bottom: 1px dotted color-mix(in srgb, var(--white) 75%, transparent); }
   .cover .mastblock p:first-child { padding-top: 0; text-transform: uppercase; }
   .cover .mastblock p:last-child { border-bottom: 0; padding-bottom: 0; font-weight: 500; }
   .cover .mastblock a { text-decoration-color: currentColor; }
-  .cover .mastblock a:hover { color: var(--paper); text-decoration-thickness: 2px; }
-  .cover .mastblock a:focus-visible { outline-color: var(--paper); }
+  .cover .mastblock a:hover { color: var(--white); text-decoration-thickness: 2px; }
+  .cover .mastblock a:focus-visible { outline-color: var(--white); }
   /* Three lines at .8 line-height, kept below the mastblock on short or zoomed screens */
   .cover h1 { position: absolute; left: calc(var(--gutter) * -.15); bottom: 1.2rem; margin: 0; font-family: var(--sans); font-weight: 700; font-size: clamp(3rem, min(26vw, (92svh - 14rem) / 2.4), 11.5rem); line-height: .8; letter-spacing: -.035em; z-index: 1; }
   .cover h1 span { display: block; }
-  .cover .logo { position: absolute; right: var(--gutter); bottom: 1.8rem; width: clamp(3.4rem, 9vw, 5rem); color: var(--paper); z-index: 1; }
+  .cover .logo { position: absolute; right: var(--gutter); bottom: 1.8rem; width: clamp(3.4rem, 9vw, 5rem); color: var(--white); z-index: 1; }
   .cover .contents { padding: 3rem var(--gutter) 4rem; display: flex; flex-direction: column; justify-content: center; }
   .cover h2 { font-family: var(--cond); font-weight: 300; font-size: clamp(2.6rem, 6vw, 4.2rem); line-height: .95; text-transform: uppercase; margin: 0 0 1.4rem; letter-spacing: .005em; }
   .toc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
@@ -90,11 +94,11 @@
   .dot { display: block; background: var(--red); border-radius: 50%; }
   .dot.ghost { background: none; }
   /* Khurshid: the red bird stands in for a portrait, as in print */
-  .dot.bird { border-radius: 0; background: var(--red); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64.11 69.79'%3E%3Cpath fill='black' d='M55.68 18.84C55.12 15.84 52.96 13.28 49.67 11.4C49.47 11.29 49.34 11.23 49.32 11.23C49.32 11.25 49.31 11.26 49.31 11.27C48.95 13.34 47.38 21.86 47.38 21.86C47.38 21.86 47.01 23.06 46.39 22.95C45.87 22.84 45.91 21.91 45.91 21.91L45.92 11.26C45.92 11.26 45.43 7.1 39.18 2.8C40.02 6.87 38.57 15.07 38.57 15.07C38.57 15.07 38.33 15.72 37.75 15.62C37.3 15.54 37.17 14.98 37.17 14.98C37.17 14.98 37.86 8.6 36.51 4.41C35.44 1.45 31.98 0 28.46 0.3C29.86 3.39 30.54 11.71 30.54 11.71C30.54 11.71 30.79 13.23 29.75 13.06C29.47 13.01 29.37 12.61 29.23 12.16C28.82 10.4 28.07 6.7 27.17 5.25C25.9 2.82 20.96 2.09 17.32 2.95C19.27 5.22 21.56 15.66 21.9 17.42C22.98 23.41 23.09 28.2 23.09 28.2C23.09 28.2 23.02 28.45 22.93 28.47L22.68 28.54C22.68 28.54 13.54 14.43 16 9.21L15.86 9.05C11.25 11.6 7.64 14.88 4.52 20C3.14 22.23 1.68 26.29 1.68 26.29C0.82 28.95 0.33 32.07 0.33 32.07C0.12 32.97 0.52 33.64 1.2 34.26C1.87 34.87 3.43 34.9 3.43 34.9L15.07 38.09C15.07 38.09 16.3 38.34 16.34 38.83C16.33 39.39 14.67 39.73 14.67 39.73C14.67 39.73 4.71 43.14 0 42.89C1 46.49 4.02 50.47 6.76 50.41C10.33 50.21 11.95 49.18 13.81 48.89C14.28 48.79 14.58 48.59 14.84 48.9C15.49 49.67 14.05 50.25 14.05 50.25C14.05 50.25 6.43 53.65 3.05 53.92C4.48 57.14 7.42 59.48 10.53 58.99C14.85 58.16 20.11 54.48 20.11 54.48C20.11 54.48 20.66 54.32 20.96 54.68C21.32 55.14 20.86 55.66 20.86 55.66C20.86 55.66 14.38 60.88 10.4 62.11C17.18 65.51 21.06 63.94 21.06 63.94L28.14 60.04L28.15 60.04C29.88 58.93 31.06 58.02 31.06 58.02C31.06 58.02 31.67 57.81 32.03 58.19C32.46 58.69 31.98 59.3 31.98 59.3C31.98 59.3 30.61 60.53 28.7 62.03L28.7 62.03C26.6 63.75 23.71 66.1 22.71 66.9C22.7 66.91 22.69 66.92 22.68 66.93C23.03 66.93 23.08 67.04 23 67.16C26.23 69.13 29.51 69.79 32.41 68.83C38.57 66.73 43.48 59.32 47.59 57.12C53.71 54.04 57.88 58.06 61.25 60.68C64.11 54.12 58.48 48.63 53.85 45.43L53.86 45.43C53.58 44.59 52.78 41.8 52.73 37.78C52.68 33.12 56.8 25.25 55.68 18.84 M56.81 53.09C56.99 53.75 56.6 54.43 55.95 54.62C55.29 54.8 54.6 54.41 54.42 53.75C54.24 53.09 54.62 52.41 55.29 52.23C55.94 52.05 56.62 52.43 56.81 53.09'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64.11 69.79'%3E%3Cpath fill='black' d='M55.68 18.84C55.12 15.84 52.96 13.28 49.67 11.4C49.47 11.29 49.34 11.23 49.32 11.23C49.32 11.25 49.31 11.26 49.31 11.27C48.95 13.34 47.38 21.86 47.38 21.86C47.38 21.86 47.01 23.06 46.39 22.95C45.87 22.84 45.91 21.91 45.91 21.91L45.92 11.26C45.92 11.26 45.43 7.1 39.18 2.8C40.02 6.87 38.57 15.07 38.57 15.07C38.57 15.07 38.33 15.72 37.75 15.62C37.3 15.54 37.17 14.98 37.17 14.98C37.17 14.98 37.86 8.6 36.51 4.41C35.44 1.45 31.98 0 28.46 0.3C29.86 3.39 30.54 11.71 30.54 11.71C30.54 11.71 30.79 13.23 29.75 13.06C29.47 13.01 29.37 12.61 29.23 12.16C28.82 10.4 28.07 6.7 27.17 5.25C25.9 2.82 20.96 2.09 17.32 2.95C19.27 5.22 21.56 15.66 21.9 17.42C22.98 23.41 23.09 28.2 23.09 28.2C23.09 28.2 23.02 28.45 22.93 28.47L22.68 28.54C22.68 28.54 13.54 14.43 16 9.21L15.86 9.05C11.25 11.6 7.64 14.88 4.52 20C3.14 22.23 1.68 26.29 1.68 26.29C0.82 28.95 0.33 32.07 0.33 32.07C0.12 32.97 0.52 33.64 1.2 34.26C1.87 34.87 3.43 34.9 3.43 34.9L15.07 38.09C15.07 38.09 16.3 38.34 16.34 38.83C16.33 39.39 14.67 39.73 14.67 39.73C14.67 39.73 4.71 43.14 0 42.89C1 46.49 4.02 50.47 6.76 50.41C10.33 50.21 11.95 49.18 13.81 48.89C14.28 48.79 14.58 48.59 14.84 48.9C15.49 49.67 14.05 50.25 14.05 50.25C14.05 50.25 6.43 53.65 3.05 53.92C4.48 57.14 7.42 59.48 10.53 58.99C14.85 58.16 20.11 54.48 20.11 54.48C20.11 54.48 20.66 54.32 20.96 54.68C21.32 55.14 20.86 55.66 20.86 55.66C20.86 55.66 14.38 60.88 10.4 62.11C17.18 65.51 21.06 63.94 21.06 63.94L28.14 60.04L28.15 60.04C29.88 58.93 31.06 58.02 31.06 58.02C31.06 58.02 31.67 57.81 32.03 58.19C32.46 58.69 31.98 59.3 31.98 59.3C31.98 59.3 30.61 60.53 28.7 62.03L28.7 62.03C26.6 63.75 23.71 66.1 22.71 66.9C22.7 66.91 22.69 66.92 22.68 66.93C23.03 66.93 23.08 67.04 23 67.16C26.23 69.13 29.51 69.79 32.41 68.83C38.57 66.73 43.48 59.32 47.59 57.12C53.71 54.04 57.88 58.06 61.25 60.68C64.11 54.12 58.48 48.63 53.85 45.43L53.86 45.43C53.58 44.59 52.78 41.8 52.73 37.78C52.68 33.12 56.8 25.25 55.68 18.84 M56.81 53.09C56.99 53.75 56.6 54.43 55.95 54.62C55.29 54.8 54.6 54.41 54.42 53.75C54.24 53.09 54.62 52.41 55.29 52.23C55.94 52.05 56.62 52.43 56.81 53.09'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .dot.bird, .byline .dot.bird { border-radius: 0; background: var(--red); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64.11 69.79'%3E%3Cpath fill='black' d='M55.68 18.84C55.12 15.84 52.96 13.28 49.67 11.4C49.47 11.29 49.34 11.23 49.32 11.23C49.32 11.25 49.31 11.26 49.31 11.27C48.95 13.34 47.38 21.86 47.38 21.86C47.38 21.86 47.01 23.06 46.39 22.95C45.87 22.84 45.91 21.91 45.91 21.91L45.92 11.26C45.92 11.26 45.43 7.1 39.18 2.8C40.02 6.87 38.57 15.07 38.57 15.07C38.57 15.07 38.33 15.72 37.75 15.62C37.3 15.54 37.17 14.98 37.17 14.98C37.17 14.98 37.86 8.6 36.51 4.41C35.44 1.45 31.98 0 28.46 0.3C29.86 3.39 30.54 11.71 30.54 11.71C30.54 11.71 30.79 13.23 29.75 13.06C29.47 13.01 29.37 12.61 29.23 12.16C28.82 10.4 28.07 6.7 27.17 5.25C25.9 2.82 20.96 2.09 17.32 2.95C19.27 5.22 21.56 15.66 21.9 17.42C22.98 23.41 23.09 28.2 23.09 28.2C23.09 28.2 23.02 28.45 22.93 28.47L22.68 28.54C22.68 28.54 13.54 14.43 16 9.21L15.86 9.05C11.25 11.6 7.64 14.88 4.52 20C3.14 22.23 1.68 26.29 1.68 26.29C0.82 28.95 0.33 32.07 0.33 32.07C0.12 32.97 0.52 33.64 1.2 34.26C1.87 34.87 3.43 34.9 3.43 34.9L15.07 38.09C15.07 38.09 16.3 38.34 16.34 38.83C16.33 39.39 14.67 39.73 14.67 39.73C14.67 39.73 4.71 43.14 0 42.89C1 46.49 4.02 50.47 6.76 50.41C10.33 50.21 11.95 49.18 13.81 48.89C14.28 48.79 14.58 48.59 14.84 48.9C15.49 49.67 14.05 50.25 14.05 50.25C14.05 50.25 6.43 53.65 3.05 53.92C4.48 57.14 7.42 59.48 10.53 58.99C14.85 58.16 20.11 54.48 20.11 54.48C20.11 54.48 20.66 54.32 20.96 54.68C21.32 55.14 20.86 55.66 20.86 55.66C20.86 55.66 14.38 60.88 10.4 62.11C17.18 65.51 21.06 63.94 21.06 63.94L28.14 60.04L28.15 60.04C29.88 58.93 31.06 58.02 31.06 58.02C31.06 58.02 31.67 57.81 32.03 58.19C32.46 58.69 31.98 59.3 31.98 59.3C31.98 59.3 30.61 60.53 28.7 62.03L28.7 62.03C26.6 63.75 23.71 66.1 22.71 66.9C22.7 66.91 22.69 66.92 22.68 66.93C23.03 66.93 23.08 67.04 23 67.16C26.23 69.13 29.51 69.79 32.41 68.83C38.57 66.73 43.48 59.32 47.59 57.12C53.71 54.04 57.88 58.06 61.25 60.68C64.11 54.12 58.48 48.63 53.85 45.43L53.86 45.43C53.58 44.59 52.78 41.8 52.73 37.78C52.68 33.12 56.8 25.25 55.68 18.84 M56.81 53.09C56.99 53.75 56.6 54.43 55.95 54.62C55.29 54.8 54.6 54.41 54.42 53.75C54.24 53.09 54.62 52.41 55.29 52.23C55.94 52.05 56.62 52.43 56.81 53.09'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64.11 69.79'%3E%3Cpath fill='black' d='M55.68 18.84C55.12 15.84 52.96 13.28 49.67 11.4C49.47 11.29 49.34 11.23 49.32 11.23C49.32 11.25 49.31 11.26 49.31 11.27C48.95 13.34 47.38 21.86 47.38 21.86C47.38 21.86 47.01 23.06 46.39 22.95C45.87 22.84 45.91 21.91 45.91 21.91L45.92 11.26C45.92 11.26 45.43 7.1 39.18 2.8C40.02 6.87 38.57 15.07 38.57 15.07C38.57 15.07 38.33 15.72 37.75 15.62C37.3 15.54 37.17 14.98 37.17 14.98C37.17 14.98 37.86 8.6 36.51 4.41C35.44 1.45 31.98 0 28.46 0.3C29.86 3.39 30.54 11.71 30.54 11.71C30.54 11.71 30.79 13.23 29.75 13.06C29.47 13.01 29.37 12.61 29.23 12.16C28.82 10.4 28.07 6.7 27.17 5.25C25.9 2.82 20.96 2.09 17.32 2.95C19.27 5.22 21.56 15.66 21.9 17.42C22.98 23.41 23.09 28.2 23.09 28.2C23.09 28.2 23.02 28.45 22.93 28.47L22.68 28.54C22.68 28.54 13.54 14.43 16 9.21L15.86 9.05C11.25 11.6 7.64 14.88 4.52 20C3.14 22.23 1.68 26.29 1.68 26.29C0.82 28.95 0.33 32.07 0.33 32.07C0.12 32.97 0.52 33.64 1.2 34.26C1.87 34.87 3.43 34.9 3.43 34.9L15.07 38.09C15.07 38.09 16.3 38.34 16.34 38.83C16.33 39.39 14.67 39.73 14.67 39.73C14.67 39.73 4.71 43.14 0 42.89C1 46.49 4.02 50.47 6.76 50.41C10.33 50.21 11.95 49.18 13.81 48.89C14.28 48.79 14.58 48.59 14.84 48.9C15.49 49.67 14.05 50.25 14.05 50.25C14.05 50.25 6.43 53.65 3.05 53.92C4.48 57.14 7.42 59.48 10.53 58.99C14.85 58.16 20.11 54.48 20.11 54.48C20.11 54.48 20.66 54.32 20.96 54.68C21.32 55.14 20.86 55.66 20.86 55.66C20.86 55.66 14.38 60.88 10.4 62.11C17.18 65.51 21.06 63.94 21.06 63.94L28.14 60.04L28.15 60.04C29.88 58.93 31.06 58.02 31.06 58.02C31.06 58.02 31.67 57.81 32.03 58.19C32.46 58.69 31.98 59.3 31.98 59.3C31.98 59.3 30.61 60.53 28.7 62.03L28.7 62.03C26.6 63.75 23.71 66.1 22.71 66.9C22.7 66.91 22.69 66.92 22.68 66.93C23.03 66.93 23.08 67.04 23 67.16C26.23 69.13 29.51 69.79 32.41 68.83C38.57 66.73 43.48 59.32 47.59 57.12C53.71 54.04 57.88 58.06 61.25 60.68C64.11 54.12 58.48 48.63 53.85 45.43L53.86 45.43C53.58 44.59 52.78 41.8 52.73 37.78C52.68 33.12 56.8 25.25 55.68 18.84 M56.81 53.09C56.99 53.75 56.6 54.43 55.95 54.62C55.29 54.8 54.6 54.41 54.42 53.75C54.24 53.09 54.62 52.41 55.29 52.23C55.94 52.05 56.62 52.43 56.81 53.09'/%3E%3C/svg%3E") center / contain no-repeat; }
   .toc .tt { display: block; font-family: var(--cond); font-weight: 600; font-size: 1.12rem; line-height: 1.12; text-transform: uppercase; letter-spacing: .005em; transition: color .3s var(--ease); }
   .toc .by { display: block; font-style: italic; font-size: .95rem; color: var(--grey); margin-top: .1rem; }
   .toc .pg { font-family: var(--sans); font-size: .88rem; color: var(--grey); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .toc a:hover .tt { color: var(--red); }
+  .toc a:hover .tt { color: var(--red-text); }
   .cover .note { font-family: var(--sans); font-size: .88rem; color: var(--grey); margin: 1rem 0 0; }
   @media (min-width: 52rem) {
     .cover { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
@@ -137,12 +141,12 @@
   .pq { margin: 2rem 0; padding: 1.5rem 1.4rem; }
   .pq p { margin: 0; text-indent: 0 !important; font-family: var(--display); font-style: italic; font-size: var(--lede); line-height: 1.3; hyphens: manual; }
   /* Scalloped top and bottom edges, as in print: semicircle bites tiled with round so a whole number fits */
-  .pq.red { --r: .5rem; --step: 1.35rem; background: var(--red); color: var(--paper); text-align: center; padding-block: 1.9rem;
+  .pq.red { --r: .5rem; --step: 1.35rem; background: var(--red); color: var(--white); text-align: center; padding-block: 1.9rem;
     --bite-t: radial-gradient(circle at 50% 0, #0000 var(--r), #000 calc(var(--r) + .5px)) top / var(--step) 51% round no-repeat;
     --bite-b: radial-gradient(circle at 50% 100%, #0000 var(--r), #000 calc(var(--r) + .5px)) bottom / var(--step) 51% round no-repeat;
     -webkit-mask: var(--bite-t), var(--bite-b); mask: var(--bite-t), var(--bite-b); }
   .pq.red p { font-weight: 500; }
-  .pq.orange { background: var(--orange); color: var(--ink); }
+  .pq.orange { background: var(--orange); color: var(--on-orange); }
   .story figure { margin: 2.2rem 0; }
   .story figure.wide { clear: both; }
   .story figure.margin img { max-height: 70svh; width: auto; margin-inline: auto; }
@@ -178,7 +182,7 @@
     .opener.flip { container-type: inline-size; }
     .opener.flip .head { padding-left: max(var(--gutter), (100cqw - (34.22rem + var(--margin-col) + 3rem)) / 2); }
   }
-  .standfirst { font-family: var(--display); font-size: var(--lede); line-height: 1.35; color: var(--red); margin: 0; text-wrap: pretty; }
+  .standfirst { font-family: var(--display); font-size: var(--lede); line-height: 1.35; color: var(--red-text); margin: 0; text-wrap: pretty; }
   .standfirst.it { font-style: italic; }
 
   /* About this issue */
@@ -194,9 +198,9 @@
 
   /* Green: the title runs across the seam, white on the photograph and ink beside it */
   .split-title { font-family: var(--cond); font-weight: 400; text-transform: uppercase; line-height: .9; margin: 0; font-size: clamp(3rem, 12vw, 6rem); letter-spacing: -.005em; }
-  .split-title.a { display: block; color: var(--paper); position: absolute; left: var(--gutter); right: var(--gutter); bottom: 1.4rem; z-index: 1; }
+  .split-title.a { display: block; color: var(--white); position: absolute; left: var(--gutter); right: var(--gutter); bottom: 1.4rem; z-index: 1; }
   .split-title.b { margin: 0 0 1.8rem; }
-  .epigraph { margin: 0; font-family: var(--display); color: var(--red); font-size: var(--lede); line-height: 1.38; }
+  .epigraph { margin: 0; font-family: var(--display); color: var(--red-text); font-size: var(--lede); line-height: 1.38; }
   .epigraph p { margin: 0; }
   .epigraph footer { margin-top: .7rem; font-size: .88em; text-align: right; }
   /* Both halves sit on the opener's vertical centre: .a in the photo, .b in the middle row of the head */
@@ -228,9 +232,9 @@
   .k-open .cards { margin-block: 0; }
   .cards > *, .story .cards > * { margin: 0; border-radius: .6rem; }
   .cards .pq, .box-standfirst { display: flex; align-items: center; padding: clamp(1.4rem, 3vw, 2.2rem); }
-  .box-standfirst { background: var(--orange); color: var(--ink); font-family: var(--display); font-size: var(--lede); line-height: 1.32; }
+  .box-standfirst { background: var(--orange); color: var(--on-orange); font-family: var(--display); font-size: var(--lede); line-height: 1.32; }
   /* As in print the plate runs to the card edge; multiply turns the paper white to cream */
-  .plate { background: var(--cream); overflow: hidden; }
+  .plate { background: var(--plate); overflow: hidden; }
   .plate img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
   @media (min-width: 40rem) { .cards { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 
@@ -298,13 +302,13 @@
   }
   .colophon { background: var(--cream); padding: 2.6rem var(--gutter) 2.4rem; font-family: var(--sans); font-size: .9rem; line-height: 1.5; display: grid; gap: 1.8rem; }
   .colophon p { margin: 0 0 .75rem; text-wrap: pretty; }
-  .colophon .lbl { color: var(--red); font-style: italic; margin-bottom: .25rem; }
+  .colophon .lbl { color: var(--red-text); font-style: italic; margin-bottom: .25rem; }
   .colophon .grp + .grp { margin-top: .4rem; }
   .colophon a { text-decoration-color: color-mix(in srgb, var(--red) 70%, transparent); }
   .follow { display: flex; flex-wrap: wrap; gap: 1rem 2.2rem; padding-top: 1.2rem; border-top: 1px dotted var(--ink); }
   .follow a { text-decoration: none; display: block; }
   .follow .sico { display: block; width: 2.25rem; height: 2.25rem; margin-bottom: .5rem; }
-  .follow b { display: block; font-size: .88rem; letter-spacing: .04em; color: var(--red); }
+  .follow b { display: block; font-size: .88rem; letter-spacing: .04em; color: var(--red-text); }
   @media (min-width: 52rem) {
     .colophon { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .colophon > div + div:not(.follow) { border-left: 1px dotted var(--ink); padding-left: 1.6rem; }
@@ -316,8 +320,38 @@
 
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; } }
   @media print { .rail, .tocbtn, .skip { display: none !important; } .shell { display: block; } }
+
+  /* Printed objects keep the print red on hover, whatever the theme */
+  .aio, .pq.orange, .box-standfirst { --red-text: var(--red); }
+
+  /* Dark: the page turns to night, but the printed objects stay printed.
+     The orange cards, the cream plates and the Art in Orvieto ad keep their paper;
+     red keeps its fills, and small red type steps up to --red-text. */
+  @media screen and (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1A1714;
+      --ink: #ECE4D6;
+      --grey: #A39A8D;
+      --cream: #262019;
+      --red-text: #F0585D;
+      color-scheme: dark;
+    }
+  }
+  @media screen {
+    :root[data-theme="dark"] {
+        --paper: #1A1714;
+        --ink: #ECE4D6;
+        --grey: #A39A8D;
+        --cream: #262019;
+        --red-text: #F0585D;
+        color-scheme: dark;
+    }
+  }
+
 </style>
 <!-- site:head -->
+<meta name="color-scheme" content="light dark">
+<script>(function(d){d.classList.add('js');try{var t=localStorage.getItem('perspective:theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t)}catch(e){}})(document.documentElement)</script>
 <link rel="canonical" href="https://perspective.icscanada.edu/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Perspective">
@@ -371,6 +405,10 @@
         </li>
       </ul>
     </nav>
+
+    <button class="ics-theme" type="button" aria-label="Dark mode" aria-pressed="false" title="Dark mode">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 3.75a8.25 8.25 0 0 1 0 16.5z" fill="currentColor"/></svg>
+    </button>
 
     <button class="ics-burger" aria-label="Open menu" type="button">
       <span></span><span></span><span></span>

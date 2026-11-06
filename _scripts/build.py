@@ -120,13 +120,26 @@ def seo(title, desc, path, image=None, kind="website", graph=()):
             + (ld(*graph) if graph else ""))
 
 
+# Set before first paint so a stored choice never flashes the other theme. The
+# `js` class goes on here too, so the theme switch is laid out from the start.
+THEME_HEAD = """<meta name="color-scheme" content="light dark">
+<script>(function(d){d.classList.add('js');try{var t=localStorage.getItem('perspective:theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t)}catch(e){}})(document.documentElement)</script>
+"""
+
+THEME_BTN = """    <button class="ics-theme" type="button" aria-label="Dark mode" aria-pressed="false" title="Dark mode">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 3.75a8.25 8.25 0 0 1 0 16.5z" fill="currentColor"/></svg>
+    </button>
+
+"""
+
+
 def head(title, desc, p, extra="", robots="", path="", graph=()):
     return f"""<!doctype html>
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
+{THEME_HEAD}<title>{title}</title>
 <meta name="description" content="{desc}">
 {robots}{seo(title, desc, path, graph=graph)}<meta name="theme-color" content="#000000">
 <link rel="icon" type="image/png" href="{p}assets/img/ics-favicon.png">
@@ -172,7 +185,7 @@ def masthead(p, active):
       </ul>
     </nav>
 
-    <button class="ics-burger" aria-label="Open menu" type="button">
+{THEME_BTN}    <button class="ics-burger" aria-label="Open menu" type="button">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -479,7 +492,7 @@ def wrap_edition(src, p, active, teaser="", robots="", path=None):
     s, meta = edition_seo(src, "" if path is None else path)
     extra = f'<link rel="stylesheet" href="{p}assets/teaser.css">\n' if teaser else ""
     s = put_between(s, "head",
-                    f'{robots}{meta}<link rel="stylesheet" href="{p}assets/chrome.css">\n{extra}<script src="{p}assets/js/site.js" defer></script>\n{EDITION_FIT}',
+                    f'{THEME_HEAD}{robots}{meta}<link rel="stylesheet" href="{p}assets/chrome.css">\n{extra}<script src="{p}assets/js/site.js" defer></script>\n{EDITION_FIT}',
                     r"</head>", after=False)
     s = put_between(s, "masthead", masthead(p, active), r'<a class="skip"[^>]*>[^<]*</a>\n')
     s = put_between(s, "footer", teaser + footer(p), r"</body>", after=False)

@@ -157,6 +157,26 @@
   text-decoration-thickness: 1.5px;
 }
 
+/* Light/dark switch: Perspective's one addition to the borrowed bar, drawn in
+   the bar's own white like the burger beside it. Laid out only once the head
+   script has marked the page `js`; the half-filled disc turns over in dark. */
+.ics-header__inner > nav { margin-left: auto; }
+.ics-theme {
+  display: none;
+  place-items: center;
+  flex: none;
+  width: 44px; height: 44px;
+  padding: 0;
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.85);
+  transition: color 0.3s ease;
+}
+.js .ics-theme { display: grid; }
+.ics-theme:hover { color: var(--brand-red); }
+.ics-theme svg { width: 22px; height: 22px; transition: transform 0.6s cubic-bezier(.16, 1, .3, 1); }
+.ics-theme[aria-pressed="true"] svg { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .ics-theme svg { transition: none; } }
+
 .ics-burger {
   display: none;
   flex-direction: column;
