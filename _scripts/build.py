@@ -133,6 +133,12 @@ THEME_BTN = """    <button class="ics-theme" type="button" aria-label="Dark mode
 """
 
 
+def favicon(p):
+    """The same mark, and the same pair of links, as the icscanada.edu pages (ics-site: assets/logos/ics-favicon.png)."""
+    return (f'<link rel="icon" href="{p}assets/img/ics-favicon.png" type="image/png">\n'
+            f'<link rel="apple-touch-icon" href="{p}assets/img/ics-favicon.png">\n')
+
+
 def head(title, desc, p, extra="", robots="", path="", graph=()):
     return f"""<!doctype html>
 <html lang="en-CA">
@@ -142,8 +148,7 @@ def head(title, desc, p, extra="", robots="", path="", graph=()):
 {THEME_HEAD}<title>{title}</title>
 <meta name="description" content="{desc}">
 {robots}{seo(title, desc, path, graph=graph)}<meta name="theme-color" content="#000000">
-<link rel="icon" type="image/png" href="{p}assets/img/ics-favicon.png">
-<link rel="preload" href="{p}assets/fonts/Newsreader-Roman-latin.woff2" as="font" type="font/woff2" crossorigin>
+{favicon(p)}<link rel="preload" href="{p}assets/fonts/Newsreader-Roman-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{p}assets/fonts/fonts.css">
 <link rel="stylesheet" href="{p}assets/site.css">
 <link rel="stylesheet" href="{p}assets/chrome.css">
@@ -492,7 +497,7 @@ def wrap_edition(src, p, active, teaser="", robots="", path=None):
     s, meta = edition_seo(src, "" if path is None else path)
     extra = f'<link rel="stylesheet" href="{p}assets/teaser.css">\n' if teaser else ""
     s = put_between(s, "head",
-                    f'{THEME_HEAD}{robots}{meta}<link rel="stylesheet" href="{p}assets/chrome.css">\n{extra}<script src="{p}assets/js/site.js" defer></script>\n{EDITION_FIT}',
+                    f'{THEME_HEAD}{robots}{meta}{favicon(p)}<link rel="stylesheet" href="{p}assets/chrome.css">\n{extra}<script src="{p}assets/js/site.js" defer></script>\n{EDITION_FIT}',
                     r"</head>", after=False)
     s = put_between(s, "masthead", masthead(p, active), r'<a class="skip"[^>]*>[^<]*</a>\n')
     s = put_between(s, "footer", teaser + footer(p), r"</body>", after=False)
@@ -615,6 +620,7 @@ def main():
     # with the most recent past issues after it.
     pristine = re.sub(r"<!-- site:(\w+) -->.*?<!-- /site:\1 -->\n", "", edition, flags=re.S)
     home = re.sub(r'((?:src|href)=")(img|fonts)/', rf'\1{CURRENT["dir"]}/\2/', pristine)
+    home = home.replace('href="../issues/', 'href="issues/')
     out["index.html"] = wrap_edition(home, "", "current", teaser=from_archive(issues, ""))
     out["sitemap.xml"] = sitemap(issues)
     out["robots.txt"] = robots_txt()
