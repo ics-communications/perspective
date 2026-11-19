@@ -5,6 +5,7 @@ Writes index.html (the current edition itself, then its most recent past issues)
 archive/ (every past issue), subscribe/, option-a/ (the earlier home page: the
 edition's cover spread, then the archive, kept for comparison) and option-b/
 (a redirect to the home page, where option B now lives),
+a redirect stub for each address the old Google Site had (LEGACY), a 404.html,
 and puts the ICS masthead and footer around the current edition in place. Every page
 gets a canonical URL on SITE, Open Graph and Twitter cards, and schema.org JSON-LD;
 sitemap.xml, robots.txt, llms.txt and llms-full.txt (the current issue as plain text)
@@ -418,6 +419,44 @@ def redirect(to, title, text):
 """
 
 
+# Addresses on the old Google Site (perspective.icscanada.edu/<slug>) that have no page of their
+# own now. /archive and /subscribe kept their names, so they are not here. Each slug becomes a
+# redirect stub, so a bookmark or a search result from the old site still lands somewhere useful.
+LEGACY = {
+    "latest-issue": ("", "The latest issue is now the Perspective home page."),
+    "recent-issues": ("archive/", "Recent issues are now in the Perspective archive."),
+    "perspective": ("", "This is now the Perspective home page."),
+    "home": ("", "This is now the Perspective home page."),
+}
+
+
+def page_404():
+    """GitHub Pages serves this for any address that does not exist, at any depth, so every path
+    on it starts from the site root. It has no canonical URL and is kept out of search results."""
+    p = "/"
+    desc = "That page is not on the Perspective site. The current issue and every past issue are."
+    style = """<style>
+  .lost { padding-block: clamp(3rem, 10vw, 7rem); max-width: 40rem; }
+  .lost h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2rem, 6vw, 3.4rem); line-height: 1.1; margin: 0 0 1rem; text-wrap: balance; }
+  .lost p { margin: 0 0 1.75rem; }
+  .lost__links { display: flex; flex-wrap: wrap; gap: .75rem; }
+</style>
+"""
+    page = head("Page not found · Perspective Magazine", desc, p, extra=style,
+                robots='<meta name="robots" content="noindex">\n')
+    page = re.sub(r'<link rel="canonical"[^\n]*\n|<meta property="og:url"[^\n]*\n', "", page)
+    main = (f'<main id="main" class="wrap lost">\n'
+            f'  <h1>That page is not here</h1>\n'
+            f'  <p>The address may have changed when <em>Perspective</em> moved to a new site. '
+            f'The current issue and every past issue back to 1967 are easy to find.</p>\n'
+            f'  <div class="lost__links">\n'
+            f'    <a class="btn" href="{p}">Read the {CURRENT["label"]} issue</a>\n'
+            f'    <a class="btn btn--line" href="{p}archive/">Browse the archive</a>\n'
+            f'  </div>\n</main>\n')
+    return (page + '<body>\n<a class="skip" href="#main">Skip to content</a>\n'
+            + masthead(p, "") + main + footer(p) + "</body>\n</html>\n")
+
+
 def page_subscribe(issues):
     p = "../"
     by_slug = {i["slug"]: i for i in issues}
@@ -611,7 +650,10 @@ def main():
         "subscribe/index.html": page_subscribe(issues),
         "option-a/index.html": page_option_a(issues),
         "option-b/index.html": redirect("../", "Moved", "Option B is now the Perspective home page."),
+        "404.html": page_404(),
     }
+    for slug, (to, text) in LEGACY.items():
+        out[f"{slug}/index.html"] = redirect(SITE + to, "Moved", text)
     ed_path = ROOT / CURRENT["dir"] / "index.html"
     edition = ed_path.read_text()
     out[f'{CURRENT["dir"]}/index.html'] = wrap_edition(edition, "../", "current", path="")
